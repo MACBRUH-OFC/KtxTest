@@ -1,65 +1,465 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-    <title>KTX Converter</title>
+    <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>KTX Studio</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
     <style>
 
-        body{
-            background:#0f0f0f;
-            color:white;
-            font-family:Arial;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            height:100vh;
+        *{
             margin:0;
+            padding:0;
+            box-sizing:border-box;
         }
 
-        .box{
-            background:#1e1e1e;
-            padding:25px;
-            border-radius:15px;
-            width:350px;
-            box-shadow:0 0 20px rgba(0,0,0,0.5);
+        body{
+
+            font-family:'Inter',sans-serif;
+
+            background:
+            radial-gradient(circle at top left,#1d4ed8 0%,transparent 30%),
+            radial-gradient(circle at bottom right,#7c3aed 0%,transparent 30%),
+            #060816;
+
+            min-height:100vh;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            padding:30px;
+
+            color:white;
+
+            overflow-x:hidden;
+        }
+
+        .bg-blur{
+
+            position:fixed;
+
+            width:500px;
+            height:500px;
+
+            border-radius:50%;
+
+            filter:blur(120px);
+
+            opacity:0.18;
+
+            z-index:0;
+        }
+
+        .bg1{
+            background:#3b82f6;
+            top:-200px;
+            left:-150px;
+        }
+
+        .bg2{
+            background:#8b5cf6;
+            bottom:-200px;
+            right:-150px;
+        }
+
+        .main{
+
+            position:relative;
+
+            z-index:2;
+
+            width:100%;
+
+            max-width:1200px;
+
+            display:grid;
+
+            grid-template-columns:
+            1fr 1fr;
+
+            gap:35px;
+        }
+
+        .panel{
+
+            background:
+            rgba(255,255,255,0.05);
+
+            border:
+            1px solid rgba(255,255,255,0.08);
+
+            backdrop-filter:blur(18px);
+
+            border-radius:30px;
+
+            padding:35px;
+
+            box-shadow:
+            0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .left{
+
+            display:flex;
+
+            flex-direction:column;
+
+            justify-content:center;
+        }
+
+        .logo{
+
+            width:70px;
+            height:70px;
+
+            border-radius:22px;
+
+            background:
+            linear-gradient(
+            135deg,
+            #3b82f6,
+            #8b5cf6
+            );
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            font-size:28px;
+
+            margin-bottom:25px;
+
+            box-shadow:
+            0 10px 30px rgba(59,130,246,0.45);
         }
 
         h1{
+
+            font-size:52px;
+
+            line-height:1.05;
+
+            font-weight:800;
+
+            margin-bottom:20px;
+        }
+
+        .gradient{
+
+            background:
+            linear-gradient(
+            90deg,
+            #60a5fa,
+            #a78bfa
+            );
+
+            -webkit-background-clip:text;
+
+            -webkit-text-fill-color:transparent;
+        }
+
+        .desc{
+
+            color:#cbd5e1;
+
+            line-height:1.7;
+
+            font-size:17px;
+
+            margin-bottom:35px;
+        }
+
+        .features{
+
+            display:flex;
+
+            gap:15px;
+
+            flex-wrap:wrap;
+        }
+
+        .tag{
+
+            padding:12px 18px;
+
+            background:
+            rgba(255,255,255,0.06);
+
+            border:
+            1px solid rgba(255,255,255,0.08);
+
+            border-radius:14px;
+
+            color:#dbeafe;
+
+            font-size:14px;
+
+            font-weight:600;
+        }
+
+        .right{
+
+            position:relative;
+        }
+
+        .card-title{
+
+            font-size:28px;
+
+            font-weight:700;
+
+            margin-bottom:10px;
+        }
+
+        .card-sub{
+
+            color:#94a3b8;
+
+            margin-bottom:28px;
+        }
+
+        .drop-zone{
+
+            border:
+            2px dashed rgba(255,255,255,0.12);
+
+            background:
+            rgba(255,255,255,0.03);
+
+            border-radius:25px;
+
+            padding:45px 25px;
+
             text-align:center;
-        }
 
-        select,input,button{
-            width:100%;
-            margin-top:15px;
-            padding:12px;
-            border:none;
-            border-radius:10px;
-            font-size:16px;
-        }
+            transition:0.25s ease;
 
-        input{
-            background:#2a2a2a;
-            color:white;
-        }
-
-        select{
-            background:#2a2a2a;
-            color:white;
-        }
-
-        button{
-            background:#00aaff;
-            color:white;
-            font-weight:bold;
             cursor:pointer;
         }
 
+        .drop-zone:hover{
+
+            border-color:#60a5fa;
+
+            background:
+            rgba(96,165,250,0.06);
+        }
+
+        .upload-icon{
+
+            font-size:60px;
+
+            margin-bottom:20px;
+        }
+
+        .upload-title{
+
+            font-size:22px;
+
+            font-weight:700;
+
+            margin-bottom:10px;
+        }
+
+        .upload-sub{
+
+            color:#94a3b8;
+
+            font-size:15px;
+
+            margin-bottom:25px;
+        }
+
+        input[type=file]{
+            display:none;
+        }
+
+        .browse{
+
+            display:inline-flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            padding:14px 24px;
+
+            border-radius:16px;
+
+            background:
+            linear-gradient(
+            135deg,
+            #2563eb,
+            #7c3aed
+            );
+
+            font-weight:700;
+
+            font-size:15px;
+
+            cursor:pointer;
+
+            box-shadow:
+            0 10px 25px rgba(59,130,246,0.35);
+        }
+
+        .controls{
+
+            margin-top:25px;
+
+            display:flex;
+
+            gap:15px;
+        }
+
+        select{
+
+            flex:1;
+
+            background:
+            rgba(255,255,255,0.05);
+
+            border:
+            1px solid rgba(255,255,255,0.08);
+
+            color:white;
+
+            padding:16px;
+
+            border-radius:16px;
+
+            outline:none;
+
+            font-size:15px;
+
+            font-family:'Inter',sans-serif;
+        }
+
+        button{
+
+            border:none;
+
+            outline:none;
+
+            padding:16px 28px;
+
+            border-radius:16px;
+
+            font-size:15px;
+
+            font-weight:700;
+
+            color:white;
+
+            cursor:pointer;
+
+            background:
+            linear-gradient(
+            135deg,
+            #3b82f6,
+            #8b5cf6
+            );
+
+            box-shadow:
+            0 10px 30px rgba(59,130,246,0.4);
+
+            transition:0.25s ease;
+        }
+
         button:hover{
-            opacity:0.9;
+
+            transform:translateY(-2px);
+        }
+
+        .preview{
+
+            margin-top:30px;
+
+            display:none;
+        }
+
+        .preview img{
+
+            width:100%;
+
+            border-radius:22px;
+
+            border:
+            1px solid rgba(255,255,255,0.08);
+
+            box-shadow:
+            0 15px 40px rgba(0,0,0,0.35);
+        }
+
+        .download{
+
+            margin-top:20px;
+
+            display:flex;
+
+            justify-content:center;
+        }
+
+        .download a{
+
+            text-decoration:none;
+
+            padding:15px 24px;
+
+            border-radius:16px;
+
+            background:
+            rgba(255,255,255,0.06);
+
+            border:
+            1px solid rgba(255,255,255,0.08);
+
+            color:white;
+
+            font-weight:700;
+        }
+
+        @media(max-width:960px){
+
+            .main{
+                grid-template-columns:1fr;
+            }
+
+            h1{
+                font-size:42px;
+            }
+
+            .panel{
+                padding:28px;
+            }
         }
 
     </style>
@@ -68,38 +468,205 @@
 
 <body>
 
-    <div class="box">
+    <div class="bg-blur bg1"></div>
+    <div class="bg-blur bg2"></div>
 
-        <h1>KTX ↔ PNG</h1>
+    <div class="main">
 
-        <form method="POST" enctype="multipart/form-data">
+        <div class="panel left">
 
-            <select name="mode">
+            <div class="logo">
+                ✦
+            </div>
 
-                <option value="ktx_to_png">
-                    KTX → PNG
-                </option>
+            <h1>
+                KTX Texture
+                <span class="gradient">
+                    Studio
+                </span>
+            </h1>
 
-                <option value="png_to_ktx">
-                    PNG → KTX
-                </option>
+            <p class="desc">
 
-            </select>
+                Modern texture conversion platform
+                for KTX, ASTC, ETC1 and PNG workflows.
 
-            <input
-                type="file"
-                name="file"
-                required
+                Upload textures instantly,
+                preview results in real-time,
+                and export converted assets
+                with premium quality rendering.
+
+            </p>
+
+            <div class="features">
+
+                <div class="tag">
+                    ASTC Support
+                </div>
+
+                <div class="tag">
+                    ETC1 Decoder
+                </div>
+
+                <div class="tag">
+                    PNG Export
+                </div>
+
+                <div class="tag">
+                    Real-time Preview
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="panel right">
+
+            <div class="card-title">
+                Convert Texture
+            </div>
+
+            <div class="card-sub">
+                Upload your texture asset below
+            </div>
+
+            <form
+                method="POST"
+                enctype="multipart/form-data"
             >
 
-            <button type="submit">
-                Convert
-            </button>
+                <label
+                    class="drop-zone"
+                    for="fileInput"
+                >
 
-        </form>
+                    <div class="upload-icon">
+                        ⬆
+                    </div>
+
+                    <div class="upload-title">
+                        Drag & Drop Texture
+                    </div>
+
+                    <div class="upload-sub">
+                        KTX, PNG, ASTC supported
+                    </div>
+
+                    <div class="browse">
+                        Browse Files
+                    </div>
+
+                </label>
+
+                <input
+                    type="file"
+                    id="fileInput"
+                    name="file"
+                    required
+                >
+
+                <div class="controls">
+
+                    <select name="mode">
+
+                        <option value="ktx_to_png">
+                            KTX → PNG
+                        </option>
+
+                        <option value="png_to_ktx">
+                            PNG → KTX
+                        </option>
+
+                    </select>
+
+                    <button type="submit">
+                        Convert
+                    </button>
+
+                </div>
+
+            </form>
+
+            <div
+                class="preview"
+                id="preview"
+            >
+
+                <img
+                    id="previewImg"
+                    src=""
+                >
+
+                <div class="download">
+
+                    <a
+                        id="downloadBtn"
+                        href="#"
+                    >
+                        Download Result
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
-</body>
+    <script>
 
+        const fileInput =
+        document.getElementById(
+            "fileInput"
+        );
+
+        const preview =
+        document.getElementById(
+            "preview"
+        );
+
+        const previewImg =
+        document.getElementById(
+            "previewImg"
+        );
+
+        fileInput.addEventListener(
+            "change",
+            function(){
+
+                const file =
+                this.files[0];
+
+                if(!file) return;
+
+                if(
+                    file.type.startsWith(
+                        "image"
+                    )
+                ){
+
+                    const reader =
+                    new FileReader();
+
+                    reader.onload =
+                    function(e){
+
+                        preview.style.display =
+                        "block";
+
+                        previewImg.src =
+                        e.target.result;
+                    }
+
+                    reader.readAsDataURL(
+                        file
+                    );
+                }
+            }
+        );
+
+    </script>
+
+</body>
 </html>
