@@ -36,16 +36,16 @@ linear-gradient(
 #0b1023
 );
 
-color:white;
-
 min-height:100vh;
 
-padding:25px;
+color:white;
+
+padding:24px;
+
+overflow-x:hidden;
 }
 
 .container{
-
-width:100%;
 
 max-width:1200px;
 
@@ -54,7 +54,7 @@ margin:auto;
 
 .hero{
 
-padding:40px 0 60px;
+margin-bottom:35px;
 }
 
 .badge{
@@ -75,7 +75,7 @@ rgba(255,255,255,0.06);
 border:
 1px solid rgba(255,255,255,0.08);
 
-margin-bottom:25px;
+margin-bottom:22px;
 }
 
 .dot{
@@ -83,20 +83,23 @@ margin-bottom:25px;
 width:10px;
 height:10px;
 
+border-radius:50%;
+
 background:#60a5fa;
 
-border-radius:50%;
+box-shadow:
+0 0 12px #60a5fa;
 }
 
 h1{
 
-font-size:70px;
+font-size:68px;
 
 line-height:1;
 
 font-weight:800;
 
-margin-bottom:20px;
+margin-bottom:18px;
 }
 
 .gradient{
@@ -119,19 +122,19 @@ font-size:18px;
 
 line-height:1.8;
 
-color:#a8b3cf;
-
 max-width:700px;
+
+color:#94a3b8;
 }
 
-.grid{
+.layout{
 
 display:grid;
 
 grid-template-columns:
-1.1fr 0.9fr;
+1.05fr 0.95fr;
 
-gap:30px;
+gap:28px;
 }
 
 .card{
@@ -144,29 +147,29 @@ border:
 
 border-radius:32px;
 
-padding:35px;
+padding:30px;
 }
 
-.upload-area{
+.upload{
 
 border:
 2px dashed rgba(255,255,255,0.12);
 
+background:
+rgba(255,255,255,0.03);
+
 border-radius:28px;
 
-padding:60px 25px;
+padding:55px 25px;
 
 text-align:center;
 
-transition:0.25s ease;
-
 cursor:pointer;
 
-background:
-rgba(255,255,255,0.03);
+transition:0.25s ease;
 }
 
-.upload-area:hover{
+.upload:hover{
 
 border-color:#60a5fa;
 
@@ -176,14 +179,14 @@ rgba(96,165,250,0.05);
 
 .icon{
 
-width:90px;
-height:90px;
+width:92px;
+height:92px;
 
 margin:auto;
 
-margin-bottom:25px;
+margin-bottom:22px;
 
-border-radius:24px;
+border-radius:26px;
 
 display:flex;
 
@@ -197,27 +200,30 @@ linear-gradient(
 #2563eb,
 #7c3aed
 );
+
+box-shadow:
+0 12px 35px rgba(59,130,246,0.35);
 }
 
 .title{
 
-font-size:30px;
+font-size:32px;
 
 font-weight:800;
 
-margin-bottom:10px;
+margin-bottom:12px;
 }
 
 .sub{
 
+font-size:15px;
+
 color:#94a3b8;
 
-line-height:1.7;
-
-margin-bottom:25px;
+margin-bottom:24px;
 }
 
-.btn{
+.pick{
 
 display:inline-flex;
 
@@ -225,26 +231,18 @@ align-items:center;
 
 justify-content:center;
 
-padding:16px 24px;
+padding:15px 24px;
 
 border-radius:18px;
 
 background:
 linear-gradient(
 135deg,
-#3b82f6,
-#8b5cf6
+#2563eb,
+#7c3aed
 );
 
 font-weight:700;
-
-font-size:15px;
-
-color:white;
-
-cursor:pointer;
-
-border:none;
 }
 
 input[type=file]{
@@ -257,7 +255,7 @@ display:flex;
 
 gap:15px;
 
-margin-top:25px;
+margin-top:22px;
 }
 
 select{
@@ -266,11 +264,11 @@ flex:1;
 
 padding:16px;
 
-border-radius:18px;
-
 border:none;
 
 outline:none;
+
+border-radius:18px;
 
 background:
 rgba(255,255,255,0.06);
@@ -302,28 +300,14 @@ linear-gradient(
 );
 
 color:white;
-}
 
-.preview{
-
-margin-top:25px;
-
-display:none;
-}
-
-.preview img{
-
-width:100%;
-
-border-radius:24px;
-
-border:
-1px solid rgba(255,255,255,0.08);
+box-shadow:
+0 10px 25px rgba(59,130,246,0.35);
 }
 
 .side-title{
 
-font-size:26px;
+font-size:24px;
 
 font-weight:800;
 
@@ -334,7 +318,7 @@ margin-bottom:18px;
 
 padding:18px;
 
-border-radius:20px;
+border-radius:22px;
 
 background:
 rgba(255,255,255,0.04);
@@ -342,12 +326,12 @@ rgba(255,255,255,0.04);
 border:
 1px solid rgba(255,255,255,0.06);
 
-margin-bottom:15px;
+margin-bottom:14px;
 }
 
 .feature h3{
 
-font-size:18px;
+font-size:17px;
 
 margin-bottom:8px;
 }
@@ -357,13 +341,15 @@ margin-bottom:8px;
 color:#94a3b8;
 
 line-height:1.7;
+
+font-size:14px;
 }
 
 .api{
 
-margin-top:25px;
+margin-top:22px;
 
-padding:22px;
+padding:20px;
 
 border-radius:24px;
 
@@ -376,39 +362,103 @@ border:
 
 .code{
 
-margin-top:15px;
+margin-top:12px;
+
+background:#050816;
 
 padding:16px;
 
 border-radius:18px;
 
-background:#050816;
+overflow:auto;
+
+font-size:13px;
 
 font-family:monospace;
-
-font-size:14px;
-
-overflow:auto;
 
 color:#93c5fd;
 }
 
-@media(max-width:950px){
+.result{
+
+margin-top:25px;
+
+display:none;
+}
+
+.result img{
+
+width:100%;
+
+border-radius:24px;
+
+border:
+1px solid rgba(255,255,255,0.08);
+
+margin-bottom:18px;
+}
+
+.download{
+
+display:flex;
+
+justify-content:center;
+}
+
+.download a{
+
+padding:15px 22px;
+
+border-radius:18px;
+
+text-decoration:none;
+
+font-weight:700;
+
+background:
+linear-gradient(
+135deg,
+#2563eb,
+#7c3aed
+);
+
+color:white;
+}
+
+.filename{
+
+margin-top:16px;
+
+color:#94a3b8;
+
+font-size:14px;
+
+text-align:center;
+}
+
+.loader{
+
+display:none;
+
+margin-top:20px;
+
+text-align:center;
+
+color:#94a3b8;
+}
+
+@media(max-width:960px){
+
+.layout{
+grid-template-columns:1fr;
+}
 
 h1{
 font-size:48px;
 }
 
-.grid{
-grid-template-columns:1fr;
-}
-
 .card{
-padding:25px;
-}
-
-.upload-area{
-padding:45px 20px;
+padding:24px;
 }
 
 .controls{
@@ -447,25 +497,23 @@ Studio
 
 <p class="desc">
 
-Professional KTX texture converter
-with modern rendering, instant preview,
-clean exports and API support.
+Convert KTX and PNG textures instantly
+with live preview and API support.
 
 </p>
 
 </div>
 
-<div class="grid">
+<div class="layout">
 
 <div class="card">
 
 <form
-method="POST"
-enctype="multipart/form-data"
+id="uploadForm"
 >
 
 <label
-class="upload-area"
+class="upload"
 for="fileInput"
 >
 
@@ -495,11 +543,10 @@ Upload Texture
 </div>
 
 <div class="sub">
-Drop your KTX or PNG texture here
-or browse manually
+Choose KTX or PNG texture
 </div>
 
-<div class="btn">
+<div class="pick">
 Choose File
 </div>
 
@@ -512,9 +559,13 @@ name="file"
 required
 >
 
+<div class="filename" id="filename">
+No file selected
+</div>
+
 <div class="controls">
 
-<select name="mode">
+<select id="mode">
 
 <option value="ktx_to_png">
 KTX → PNG
@@ -534,15 +585,30 @@ Convert
 
 </form>
 
-<div
-class="preview"
-id="preview"
->
+<div class="loader" id="loader">
+Converting texture...
+</div>
+
+<div class="result" id="result">
 
 <img
-id="previewImg"
+id="resultImg"
 src=""
 >
+
+<div class="download">
+
+<a
+id="downloadBtn"
+href="#"
+download
+>
+
+Download Result
+
+</a>
+
+</div>
 
 </div>
 
@@ -557,12 +623,12 @@ Features
 <div class="feature">
 
 <h3>
-Live Preview
+Live Conversion
 </h3>
 
 <p>
-Preview uploaded textures instantly
-before conversion.
+Convert textures instantly
+without page reload.
 </p>
 
 </div>
@@ -570,12 +636,12 @@ before conversion.
 <div class="feature">
 
 <h3>
-API Ready
+Modern Preview
 </h3>
 
 <p>
-Use as direct upload converter API
-for apps and automation.
+Preview converted texture
+directly inside browser.
 </p>
 
 </div>
@@ -583,12 +649,12 @@ for apps and automation.
 <div class="feature">
 
 <h3>
-Modern Rendering
+API Support
 </h3>
 
 <p>
-Supports KTX texture conversion
-with clean export workflow.
+Use converter directly
+inside apps and scripts.
 </p>
 
 </div>
@@ -620,51 +686,115 @@ mode=ktx_to_png
 
 <script>
 
+const form =
+document.getElementById(
+"uploadForm"
+);
+
 const fileInput =
 document.getElementById(
 "fileInput"
 );
 
-const preview =
+const filename =
 document.getElementById(
-"preview"
+"filename"
 );
 
-const previewImg =
+const loader =
 document.getElementById(
-"previewImg"
+"loader"
+);
+
+const result =
+document.getElementById(
+"result"
+);
+
+const resultImg =
+document.getElementById(
+"resultImg"
+);
+
+const downloadBtn =
+document.getElementById(
+"downloadBtn"
 );
 
 fileInput.addEventListener(
 "change",
 function(){
 
+if(this.files[0]){
+
+filename.innerText =
+this.files[0].name;
+}
+}
+);
+
+form.addEventListener(
+"submit",
+async function(e){
+
+e.preventDefault();
+
 const file =
-this.files[0];
+fileInput.files[0];
 
 if(!file) return;
 
-if(
-file.type.startsWith(
-"image"
-)
-){
-
-const reader =
-new FileReader();
-
-reader.onload =
-function(e){
-
-preview.style.display =
+loader.style.display =
 "block";
 
-previewImg.src =
-e.target.result;
-}
+result.style.display =
+"none";
 
-reader.readAsDataURL(
+const formData =
+new FormData();
+
+formData.append(
+"file",
 file
+);
+
+formData.append(
+"mode",
+document.getElementById(
+"mode"
+).value
+);
+
+const response =
+await fetch(
+"/api/convert",
+{
+method:"POST",
+body:formData
+}
+);
+
+const data =
+await response.json();
+
+loader.style.display =
+"none";
+
+if(data.success){
+
+result.style.display =
+"block";
+
+resultImg.src =
+data.preview;
+
+downloadBtn.href =
+data.download;
+}
+else{
+
+alert(
+data.error
 );
 }
 }
