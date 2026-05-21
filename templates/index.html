@@ -3,670 +3,816 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
 
-    <title>KTX Studio</title>
+<title>KTX Studio</title>
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
+<link
+rel="preconnect"
+href="https://fonts.googleapis.com"
+>
 
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
+<link
+rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin
+>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+rel="stylesheet"
+>
 
-    <style>
+<style>
 
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-        }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
-        body{
+body{
 
-            font-family:'Inter',sans-serif;
+font-family:'Inter',sans-serif;
 
-            background:
-            radial-gradient(circle at top left,#1d4ed8 0%,transparent 30%),
-            radial-gradient(circle at bottom right,#7c3aed 0%,transparent 30%),
-            #060816;
+background:
+linear-gradient(
+135deg,
+#050816,
+#0d1328
+);
 
-            min-height:100vh;
+min-height:100vh;
 
-            display:flex;
+display:flex;
 
-            align-items:center;
+justify-content:center;
 
-            justify-content:center;
+align-items:center;
 
-            padding:30px;
+padding:30px;
 
-            color:white;
+overflow-x:hidden;
 
-            overflow-x:hidden;
-        }
+color:white;
+}
 
-        .bg-blur{
+.glow{
 
-            position:fixed;
+position:fixed;
 
-            width:500px;
-            height:500px;
+width:450px;
+height:450px;
 
-            border-radius:50%;
+border-radius:50%;
 
-            filter:blur(120px);
+filter:blur(120px);
 
-            opacity:0.18;
+opacity:0.15;
 
-            z-index:0;
-        }
+z-index:0;
+}
 
-        .bg1{
-            background:#3b82f6;
-            top:-200px;
-            left:-150px;
-        }
+.g1{
+background:#2563eb;
+top:-150px;
+left:-100px;
+}
 
-        .bg2{
-            background:#8b5cf6;
-            bottom:-200px;
-            right:-150px;
-        }
+.g2{
+background:#7c3aed;
+bottom:-150px;
+right:-100px;
+}
 
-        .main{
+.container{
 
-            position:relative;
+position:relative;
 
-            z-index:2;
+z-index:2;
 
-            width:100%;
+width:100%;
 
-            max-width:1200px;
+max-width:1200px;
 
-            display:grid;
+display:grid;
 
-            grid-template-columns:
-            1fr 1fr;
+grid-template-columns:
+1fr 1fr;
 
-            gap:35px;
-        }
+gap:35px;
+}
 
-        .panel{
+.card{
 
-            background:
-            rgba(255,255,255,0.05);
+background:
+rgba(255,255,255,0.05);
 
-            border:
-            1px solid rgba(255,255,255,0.08);
+border:
+1px solid rgba(255,255,255,0.08);
 
-            backdrop-filter:blur(18px);
+backdrop-filter:blur(20px);
 
-            border-radius:30px;
+border-radius:32px;
 
-            padding:35px;
+padding:40px;
 
-            box-shadow:
-            0 20px 60px rgba(0,0,0,0.4);
-        }
+box-shadow:
+0 20px 50px rgba(0,0,0,0.35);
+}
 
-        .left{
+.left{
 
-            display:flex;
+display:flex;
 
-            flex-direction:column;
+flex-direction:column;
 
-            justify-content:center;
-        }
+justify-content:center;
+}
 
-        .logo{
+.badge{
 
-            width:70px;
-            height:70px;
+display:inline-flex;
 
-            border-radius:22px;
+align-items:center;
 
-            background:
-            linear-gradient(
-            135deg,
-            #3b82f6,
-            #8b5cf6
-            );
+gap:10px;
 
-            display:flex;
+padding:12px 18px;
 
-            align-items:center;
+border-radius:999px;
 
-            justify-content:center;
+background:
+rgba(255,255,255,0.06);
 
-            font-size:28px;
+border:
+1px solid rgba(255,255,255,0.08);
 
-            margin-bottom:25px;
+width:max-content;
 
-            box-shadow:
-            0 10px 30px rgba(59,130,246,0.45);
-        }
+margin-bottom:28px;
+}
 
-        h1{
+.dot{
 
-            font-size:52px;
+width:10px;
+height:10px;
 
-            line-height:1.05;
+border-radius:50%;
 
-            font-weight:800;
+background:#60a5fa;
 
-            margin-bottom:20px;
-        }
+box-shadow:
+0 0 12px #60a5fa;
+}
 
-        .gradient{
+h1{
 
-            background:
-            linear-gradient(
-            90deg,
-            #60a5fa,
-            #a78bfa
-            );
+font-size:60px;
 
-            -webkit-background-clip:text;
+line-height:1;
 
-            -webkit-text-fill-color:transparent;
-        }
+font-weight:800;
 
-        .desc{
+margin-bottom:20px;
+}
 
-            color:#cbd5e1;
+.gradient{
 
-            line-height:1.7;
+background:
+linear-gradient(
+90deg,
+#60a5fa,
+#8b5cf6
+);
 
-            font-size:17px;
+-webkit-background-clip:text;
 
-            margin-bottom:35px;
-        }
+-webkit-text-fill-color:transparent;
+}
 
-        .features{
+.desc{
 
-            display:flex;
+font-size:17px;
 
-            gap:15px;
+line-height:1.8;
 
-            flex-wrap:wrap;
-        }
+color:#b6c2d9;
 
-        .tag{
+max-width:520px;
 
-            padding:12px 18px;
+margin-bottom:35px;
+}
 
-            background:
-            rgba(255,255,255,0.06);
+.stats{
 
-            border:
-            1px solid rgba(255,255,255,0.08);
+display:flex;
 
-            border-radius:14px;
+gap:18px;
 
-            color:#dbeafe;
+flex-wrap:wrap;
+}
 
-            font-size:14px;
+.stat{
 
-            font-weight:600;
-        }
+padding:18px 20px;
 
-        .right{
+background:
+rgba(255,255,255,0.05);
 
-            position:relative;
-        }
+border:
+1px solid rgba(255,255,255,0.08);
 
-        .card-title{
+border-radius:20px;
 
-            font-size:28px;
+min-width:130px;
+}
 
-            font-weight:700;
+.stat-title{
 
-            margin-bottom:10px;
-        }
+font-size:13px;
 
-        .card-sub{
+color:#94a3b8;
 
-            color:#94a3b8;
+margin-bottom:8px;
+}
 
-            margin-bottom:28px;
-        }
+.stat-value{
 
-        .drop-zone{
+font-size:20px;
 
-            border:
-            2px dashed rgba(255,255,255,0.12);
+font-weight:700;
+}
 
-            background:
-            rgba(255,255,255,0.03);
+.right-title{
 
-            border-radius:25px;
+font-size:30px;
 
-            padding:45px 25px;
+font-weight:800;
 
-            text-align:center;
+margin-bottom:10px;
+}
 
-            transition:0.25s ease;
+.right-sub{
 
-            cursor:pointer;
-        }
+color:#94a3b8;
 
-        .drop-zone:hover{
+margin-bottom:30px;
 
-            border-color:#60a5fa;
+line-height:1.7;
+}
 
-            background:
-            rgba(96,165,250,0.06);
-        }
+.upload-box{
 
-        .upload-icon{
+position:relative;
 
-            font-size:60px;
+border:
+2px dashed rgba(255,255,255,0.12);
 
-            margin-bottom:20px;
-        }
+background:
+rgba(255,255,255,0.03);
 
-        .upload-title{
+border-radius:28px;
 
-            font-size:22px;
+padding:55px 30px;
 
-            font-weight:700;
+text-align:center;
 
-            margin-bottom:10px;
-        }
+transition:0.25s ease;
 
-        .upload-sub{
+cursor:pointer;
 
-            color:#94a3b8;
+overflow:hidden;
+}
 
-            font-size:15px;
+.upload-box:hover{
 
-            margin-bottom:25px;
-        }
+border-color:#60a5fa;
 
-        input[type=file]{
-            display:none;
-        }
+background:
+rgba(96,165,250,0.06);
+}
 
-        .browse{
+.upload-icon{
 
-            display:inline-flex;
+width:90px;
+height:90px;
 
-            align-items:center;
+margin:auto;
 
-            justify-content:center;
+margin-bottom:25px;
 
-            padding:14px 24px;
+display:flex;
 
-            border-radius:16px;
+align-items:center;
 
-            background:
-            linear-gradient(
-            135deg,
-            #2563eb,
-            #7c3aed
-            );
+justify-content:center;
 
-            font-weight:700;
+border-radius:24px;
 
-            font-size:15px;
+background:
+linear-gradient(
+135deg,
+rgba(59,130,246,0.2),
+rgba(139,92,246,0.2)
+);
 
-            cursor:pointer;
+border:
+1px solid rgba(255,255,255,0.08);
+}
 
-            box-shadow:
-            0 10px 25px rgba(59,130,246,0.35);
-        }
+.upload-title{
 
-        .controls{
+font-size:24px;
 
-            margin-top:25px;
+font-weight:700;
 
-            display:flex;
+margin-bottom:12px;
+}
 
-            gap:15px;
-        }
+.upload-sub{
 
-        select{
+color:#94a3b8;
 
-            flex:1;
+font-size:15px;
 
-            background:
-            rgba(255,255,255,0.05);
+margin-bottom:25px;
+}
 
-            border:
-            1px solid rgba(255,255,255,0.08);
+.browse{
 
-            color:white;
+display:inline-flex;
 
-            padding:16px;
+align-items:center;
 
-            border-radius:16px;
+justify-content:center;
 
-            outline:none;
+padding:15px 24px;
 
-            font-size:15px;
+border-radius:16px;
 
-            font-family:'Inter',sans-serif;
-        }
+background:
+linear-gradient(
+135deg,
+#2563eb,
+#7c3aed
+);
 
-        button{
+font-weight:700;
 
-            border:none;
+font-size:15px;
 
-            outline:none;
+box-shadow:
+0 12px 25px rgba(59,130,246,0.35);
+}
 
-            padding:16px 28px;
+input[type=file]{
+display:none;
+}
 
-            border-radius:16px;
+.controls{
 
-            font-size:15px;
+margin-top:25px;
 
-            font-weight:700;
+display:flex;
 
-            color:white;
+gap:15px;
+}
 
-            cursor:pointer;
+select{
 
-            background:
-            linear-gradient(
-            135deg,
-            #3b82f6,
-            #8b5cf6
-            );
+flex:1;
 
-            box-shadow:
-            0 10px 30px rgba(59,130,246,0.4);
+padding:16px;
 
-            transition:0.25s ease;
-        }
+background:
+rgba(255,255,255,0.05);
 
-        button:hover{
+border:
+1px solid rgba(255,255,255,0.08);
 
-            transform:translateY(-2px);
-        }
+border-radius:18px;
 
-        .preview{
+outline:none;
 
-            margin-top:30px;
+color:white;
 
-            display:none;
-        }
+font-size:15px;
 
-        .preview img{
+font-family:'Inter',sans-serif;
+}
 
-            width:100%;
+button{
 
-            border-radius:22px;
+padding:16px 28px;
 
-            border:
-            1px solid rgba(255,255,255,0.08);
+border:none;
 
-            box-shadow:
-            0 15px 40px rgba(0,0,0,0.35);
-        }
+border-radius:18px;
 
-        .download{
+background:
+linear-gradient(
+135deg,
+#3b82f6,
+#8b5cf6
+);
 
-            margin-top:20px;
+color:white;
 
-            display:flex;
+font-size:15px;
 
-            justify-content:center;
-        }
+font-weight:700;
 
-        .download a{
+cursor:pointer;
 
-            text-decoration:none;
+transition:0.25s ease;
 
-            padding:15px 24px;
+box-shadow:
+0 12px 30px rgba(59,130,246,0.35);
+}
 
-            border-radius:16px;
+button:hover{
 
-            background:
-            rgba(255,255,255,0.06);
+transform:translateY(-2px);
+}
 
-            border:
-            1px solid rgba(255,255,255,0.08);
+.api{
 
-            color:white;
+margin-top:30px;
 
-            font-weight:700;
-        }
+padding:20px;
 
-        @media(max-width:960px){
+border-radius:22px;
 
-            .main{
-                grid-template-columns:1fr;
-            }
+background:
+rgba(255,255,255,0.04);
 
-            h1{
-                font-size:42px;
-            }
+border:
+1px solid rgba(255,255,255,0.08);
+}
 
-            .panel{
-                padding:28px;
-            }
-        }
+.api-title{
 
-    </style>
+font-size:16px;
+
+font-weight:700;
+
+margin-bottom:12px;
+}
+
+.code{
+
+background:#050816;
+
+padding:15px;
+
+border-radius:16px;
+
+overflow:auto;
+
+font-size:14px;
+
+color:#93c5fd;
+
+font-family:monospace;
+}
+
+.preview{
+
+margin-top:30px;
+
+display:none;
+}
+
+.preview img{
+
+width:100%;
+
+border-radius:22px;
+
+border:
+1px solid rgba(255,255,255,0.08);
+
+box-shadow:
+0 15px 35px rgba(0,0,0,0.35);
+}
+
+.download{
+
+margin-top:20px;
+
+display:flex;
+
+justify-content:center;
+}
+
+.download a{
+
+padding:15px 22px;
+
+border-radius:16px;
+
+text-decoration:none;
+
+font-weight:700;
+
+background:
+rgba(255,255,255,0.05);
+
+border:
+1px solid rgba(255,255,255,0.08);
+
+color:white;
+}
+
+@media(max-width:980px){
+
+.container{
+grid-template-columns:1fr;
+}
+
+h1{
+font-size:46px;
+}
+
+.card{
+padding:30px;
+}
+}
+
+</style>
 
 </head>
 
 <body>
 
-    <div class="bg-blur bg1"></div>
-    <div class="bg-blur bg2"></div>
+<div class="glow g1"></div>
+<div class="glow g2"></div>
 
-    <div class="main">
+<div class="container">
 
-        <div class="panel left">
+<div class="card left">
 
-            <div class="logo">
-                ✦
-            </div>
+<div class="badge">
 
-            <h1>
-                KTX Texture
-                <span class="gradient">
-                    Studio
-                </span>
-            </h1>
+<div class="dot"></div>
 
-            <p class="desc">
+<span>
+Modern Texture Converter
+</span>
 
-                Modern texture conversion platform
-                for KTX, ASTC, ETC1 and PNG workflows.
+</div>
 
-                Upload textures instantly,
-                preview results in real-time,
-                and export converted assets
-                with premium quality rendering.
+<h1>
 
-            </p>
+KTX
+<span class="gradient">
+Studio
+</span>
 
-            <div class="features">
+</h1>
 
-                <div class="tag">
-                    ASTC Support
-                </div>
+<p class="desc">
 
-                <div class="tag">
-                    ETC1 Decoder
-                </div>
+Professional web-based KTX texture
+conversion tool with instant preview,
+modern rendering and clean export workflow.
 
-                <div class="tag">
-                    PNG Export
-                </div>
+</p>
 
-                <div class="tag">
-                    Real-time Preview
-                </div>
+<div class="stats">
 
-            </div>
+<div class="stat">
 
-        </div>
+<div class="stat-title">
+Supported
+</div>
 
-        <div class="panel right">
+<div class="stat-value">
+KTX ↔ PNG
+</div>
 
-            <div class="card-title">
-                Convert Texture
-            </div>
+</div>
 
-            <div class="card-sub">
-                Upload your texture asset below
-            </div>
+<div class="stat">
 
-            <form
-                method="POST"
-                enctype="multipart/form-data"
-            >
+<div class="stat-title">
+Preview
+</div>
 
-                <label
-                    class="drop-zone"
-                    for="fileInput"
-                >
+<div class="stat-value">
+Live
+</div>
 
-                    <div class="upload-icon">
-                        ⬆
-                    </div>
+</div>
 
-                    <div class="upload-title">
-                        Drag & Drop Texture
-                    </div>
+<div class="stat">
 
-                    <div class="upload-sub">
-                        KTX, PNG, ASTC supported
-                    </div>
+<div class="stat-title">
+Export
+</div>
 
-                    <div class="browse">
-                        Browse Files
-                    </div>
+<div class="stat-value">
+Instant
+</div>
 
-                </label>
+</div>
 
-                <input
-                    type="file"
-                    id="fileInput"
-                    name="file"
-                    required
-                >
+</div>
 
-                <div class="controls">
+</div>
 
-                    <select name="mode">
+<div class="card">
 
-                        <option value="ktx_to_png">
-                            KTX → PNG
-                        </option>
+<div class="right-title">
+Convert Texture
+</div>
 
-                        <option value="png_to_ktx">
-                            PNG → KTX
-                        </option>
+<div class="right-sub">
 
-                    </select>
+Upload your KTX or PNG texture
+to preview and convert instantly.
 
-                    <button type="submit">
-                        Convert
-                    </button>
+</div>
 
-                </div>
+<form
+method="POST"
+enctype="multipart/form-data"
+>
 
-            </form>
+<label
+class="upload-box"
+for="fileInput"
+>
 
-            <div
-                class="preview"
-                id="preview"
-            >
+<div class="upload-icon">
 
-                <img
-                    id="previewImg"
-                    src=""
-                >
+<svg
+width="42"
+height="42"
+fill="none"
+stroke="white"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round"
+viewBox="0 0 24 24"
+>
 
-                <div class="download">
+<path d="M12 16V4"></path>
 
-                    <a
-                        id="downloadBtn"
-                        href="#"
-                    >
-                        Download Result
-                    </a>
+<path d="M7 9l5-5 5 5"></path>
 
-                </div>
+<path d="M20 16.58A5 5 0 0018 7h-1.26A8 8 0 104 16.25"></path>
 
-            </div>
+<path d="M8 16h8"></path>
 
-        </div>
+</svg>
 
-    </div>
+</div>
 
-    <script>
+<div class="upload-title">
+Upload Texture
+</div>
 
-        const fileInput =
-        document.getElementById(
-            "fileInput"
-        );
+<div class="upload-sub">
+Drop your file here or browse manually
+</div>
 
-        const preview =
-        document.getElementById(
-            "preview"
-        );
+<div class="browse">
+Choose File
+</div>
 
-        const previewImg =
-        document.getElementById(
-            "previewImg"
-        );
+</label>
 
-        fileInput.addEventListener(
-            "change",
-            function(){
+<input
+type="file"
+id="fileInput"
+name="file"
+required
+>
 
-                const file =
-                this.files[0];
+<div class="controls">
 
-                if(!file) return;
+<select name="mode">
 
-                if(
-                    file.type.startsWith(
-                        "image"
-                    )
-                ){
+<option value="ktx_to_png">
+KTX → PNG
+</option>
 
-                    const reader =
-                    new FileReader();
+<option value="png_to_ktx">
+PNG → KTX
+</option>
 
-                    reader.onload =
-                    function(e){
+</select>
 
-                        preview.style.display =
-                        "block";
+<button type="submit">
+Convert
+</button>
 
-                        previewImg.src =
-                        e.target.result;
-                    }
+</div>
 
-                    reader.readAsDataURL(
-                        file
-                    );
-                }
-            }
-        );
+</form>
 
-    </script>
+<div class="preview" id="preview">
+
+<img
+id="previewImg"
+src=""
+>
+
+<div class="download">
+
+<a
+id="downloadBtn"
+href="#"
+>
+Download Result
+</a>
+
+</div>
+
+</div>
+
+<div class="api">
+
+<div class="api-title">
+API Endpoint
+</div>
+
+<div class="code">
+
+POST /  
+multipart/form-data  
+
+file=&lt;texture&gt;  
+mode=ktx_to_png
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const fileInput =
+document.getElementById(
+"fileInput"
+);
+
+const preview =
+document.getElementById(
+"preview"
+);
+
+const previewImg =
+document.getElementById(
+"previewImg"
+);
+
+fileInput.addEventListener(
+"change",
+function(){
+
+const file =
+this.files[0];
+
+if(!file) return;
+
+if(
+file.type.startsWith(
+"image"
+)
+){
+
+const reader =
+new FileReader();
+
+reader.onload =
+function(e){
+
+preview.style.display =
+"block";
+
+previewImg.src =
+e.target.result;
+}
+
+reader.readAsDataURL(
+file
+);
+}
+}
+);
+
+</script>
 
 </body>
 </html>
