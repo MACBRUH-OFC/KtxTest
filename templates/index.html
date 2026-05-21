@@ -1,65 +1,96 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+
     <title>KTX Converter</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
 
         body{
-            background:#111;
+            background:#0f0f0f;
             color:white;
             font-family:Arial;
-            text-align:center;
-            padding-top:50px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+            margin:0;
         }
 
         .box{
+            background:#1e1e1e;
+            padding:25px;
+            border-radius:15px;
             width:350px;
-            margin:auto;
-            background:#222;
-            padding:20px;
-            border-radius:12px;
+            box-shadow:0 0 20px rgba(0,0,0,0.5);
         }
 
-        input,select,button{
-            margin-top:15px;
+        h1{
+            text-align:center;
+        }
+
+        select,input,button{
             width:100%;
-            padding:10px;
+            margin-top:15px;
+            padding:12px;
             border:none;
-            border-radius:8px;
+            border-radius:10px;
+            font-size:16px;
+        }
+
+        input{
+            background:#2a2a2a;
+            color:white;
+        }
+
+        select{
+            background:#2a2a2a;
+            color:white;
         }
 
         button{
-            background:#00bfff;
+            background:#00aaff;
             color:white;
             font-weight:bold;
             cursor:pointer;
         }
 
+        button:hover{
+            opacity:0.9;
+        }
+
     </style>
+
 </head>
 
 <body>
 
     <div class="box">
 
-        <h2>KTX ↔ PNG Converter</h2>
+        <h1>KTX ↔ PNG</h1>
 
         <form method="POST" enctype="multipart/form-data">
 
             <select name="mode">
 
                 <option value="ktx_to_png">
-                    KTX to PNG
+                    KTX → PNG
                 </option>
 
                 <option value="png_to_ktx">
-                    PNG to KTX
+                    PNG → KTX
                 </option>
 
             </select>
 
-            <input type="file" name="file" required>
+            <input
+                type="file"
+                name="file"
+                required
+            >
 
             <button type="submit">
                 Convert
@@ -70,4 +101,5 @@
     </div>
 
 </body>
+
 </html>
