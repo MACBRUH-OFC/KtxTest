@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>KTX Converter</title>
+
+    <style>
+
+        body{
+            background:#111;
+            color:white;
+            font-family:Arial;
+            text-align:center;
+            padding-top:50px;
+        }
+
+        .box{
+            width:350px;
+            margin:auto;
+            background:#222;
+            padding:20px;
+            border-radius:12px;
+        }
+
+        input,select,button{
+            margin-top:15px;
+            width:100%;
+            padding:10px;
+            border:none;
+            border-radius:8px;
+        }
+
+        button{
+            background:#00bfff;
+            color:white;
+            font-weight:bold;
+            cursor:pointer;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+
+        <h2>KTX ↔ PNG Converter</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <select name="mode">
+
+                <option value="ktx_to_png">
+                    KTX to PNG
+                </option>
+
+                <option value="png_to_ktx">
+                    PNG to KTX
+                </option>
+
+            </select>
+
+            <input type="file" name="file" required>
+
+            <button type="submit">
+                Convert
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+</html>
