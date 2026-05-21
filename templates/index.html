@@ -8,16 +8,15 @@
 <meta
 name="viewport"
 content="width=device-width, initial-scale=1.0"
->
+/>
 
 <title>KTX Studio</title>
 
-<link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-rel="stylesheet"
->
+<script src="https://cdn.tailwindcss.com"></script>
 
 <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&display=swap');
 
 *{
 margin:0;
@@ -27,34 +26,80 @@ box-sizing:border-box;
 
 body{
 
-font-family:'Inter',sans-serif;
+font-family:
+'Space Grotesk',
+sans-serif;
 
 background:
-linear-gradient(
-180deg,
-#050816,
-#0b1023
+radial-gradient(
+circle at top,
+#15284d 0%,
+#030712 68%
 );
 
 min-height:100vh;
 
-color:white;
-
-padding:24px;
-
 overflow-x:hidden;
+
+color:white;
 }
 
-.container{
+.bg-glow{
 
-max-width:1200px;
+position:fixed;
+
+top:-420px;
+left:50%;
+
+transform:translateX(-50%);
+
+width:1100px;
+height:1100px;
+
+background:
+radial-gradient(
+circle,
+rgba(56,189,248,0.18),
+transparent 70%
+);
+
+filter:blur(90px);
+
+pointer-events:none;
+
+z-index:0;
+}
+
+.wrapper{
+
+position:relative;
+
+z-index:1;
+
+max-width:860px;
 
 margin:auto;
+
+padding:36px 16px 60px;
 }
+
+/* ===================== */
+/* HERO */
+/* ===================== */
 
 .hero{
 
-margin-bottom:35px;
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+margin-bottom:42px;
+
+text-align:center;
 }
 
 .badge{
@@ -65,79 +110,9 @@ align-items:center;
 
 gap:10px;
 
-padding:10px 18px;
+padding:12px 22px;
 
 border-radius:999px;
-
-background:
-rgba(255,255,255,0.06);
-
-border:
-1px solid rgba(255,255,255,0.08);
-
-margin-bottom:22px;
-}
-
-.dot{
-
-width:10px;
-height:10px;
-
-border-radius:50%;
-
-background:#60a5fa;
-
-box-shadow:
-0 0 12px #60a5fa;
-}
-
-h1{
-
-font-size:68px;
-
-line-height:1;
-
-font-weight:800;
-
-margin-bottom:18px;
-}
-
-.gradient{
-
-background:
-linear-gradient(
-90deg,
-#60a5fa,
-#8b5cf6
-);
-
--webkit-background-clip:text;
-
--webkit-text-fill-color:transparent;
-}
-
-.desc{
-
-font-size:18px;
-
-line-height:1.8;
-
-max-width:700px;
-
-color:#94a3b8;
-}
-
-.layout{
-
-display:grid;
-
-grid-template-columns:
-1.05fr 0.95fr;
-
-gap:28px;
-}
-
-.card{
 
 background:
 rgba(255,255,255,0.05);
@@ -145,24 +120,164 @@ rgba(255,255,255,0.05);
 border:
 1px solid rgba(255,255,255,0.08);
 
-border-radius:32px;
+backdrop-filter:blur(20px);
 
-padding:30px;
+margin-bottom:34px;
+}
+
+.badge-dot{
+
+width:10px;
+height:10px;
+
+border-radius:50%;
+
+background:#38bdf8;
+
+box-shadow:
+0 0 18px #38bdf8;
+}
+
+.badge span{
+
+font-size:15px;
+
+font-weight:700;
+}
+
+/* ===================== */
+/* TITLE */
+/* ===================== */
+
+.title{
+
+display:flex;
+
+justify-content:center;
+
+align-items:flex-end;
+
+gap:8px;
+
+flex-wrap:nowrap;
+
+line-height:1;
+
+padding:0 12px;
+
+margin-bottom:18px;
+
+overflow:visible;
+}
+
+.title-main{
+
+font-size:108px;
+
+font-weight:800;
+
+font-style:italic;
+
+letter-spacing:-7px;
+
+line-height:1;
+
+padding-bottom:8px;
+
+color:white;
+
+text-shadow:
+0 8px 30px rgba(255,255,255,0.08);
+}
+
+.title-gradient{
+
+font-size:108px;
+
+font-weight:800;
+
+font-style:italic;
+
+letter-spacing:-7px;
+
+line-height:1.08;
+
+padding-right:14px;
+
+padding-bottom:10px;
+
+overflow:visible;
+
+background:
+linear-gradient(
+90deg,
+#38bdf8 0%,
+#60a5fa 35%,
+#8b5cf6 100%
+);
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+text-shadow:
+0 8px 30px rgba(139,92,246,0.20);
+}
+
+.subtitle{
+
+font-size:18px;
+
+font-weight:700;
+
+color:#94a3b8;
+
+letter-spacing:0.5px;
+}
+
+/* ===================== */
+/* MAIN CARD */
+/* ===================== */
+
+.main{
+
+background:
+rgba(15,23,42,0.82);
+
+backdrop-filter:blur(26px);
+
+border:
+1px solid rgba(255,255,255,0.08);
+
+border-radius:42px;
+
+padding:24px;
+
+box-shadow:
+0 30px 90px rgba(0,0,0,0.45);
 }
 
 .upload{
 
-border:
-2px dashed rgba(255,255,255,0.12);
+display:flex;
+
+align-items:center;
+
+gap:22px;
+
+padding:24px;
+
+border-radius:30px;
 
 background:
-rgba(255,255,255,0.03);
+linear-gradient(
+180deg,
+rgba(255,255,255,0.05),
+rgba(255,255,255,0.03)
+);
 
-border-radius:28px;
-
-padding:55px 25px;
-
-text-align:center;
+border:
+1px solid rgba(255,255,255,0.08);
 
 cursor:pointer;
 
@@ -171,22 +286,19 @@ transition:0.25s ease;
 
 .upload:hover{
 
-border-color:#60a5fa;
+border-color:
+rgba(56,189,248,0.35);
 
 background:
-rgba(96,165,250,0.05);
+rgba(56,189,248,0.05);
 }
 
-.icon{
+.upload-icon{
 
-width:92px;
-height:92px;
+width:88px;
+height:88px;
 
-margin:auto;
-
-margin-bottom:22px;
-
-border-radius:26px;
+border-radius:30px;
 
 display:flex;
 
@@ -202,95 +314,214 @@ linear-gradient(
 );
 
 box-shadow:
-0 12px 35px rgba(59,130,246,0.35);
+0 14px 40px rgba(59,130,246,0.35);
+
+flex-shrink:0;
 }
 
-.title{
+.upload-icon svg{
 
-font-size:32px;
+width:38px;
+height:38px;
+
+color:white;
+}
+
+.upload-title{
+
+font-size:36px;
 
 font-weight:800;
 
-margin-bottom:12px;
+font-style:italic;
+
+line-height:1;
+
+margin-bottom:10px;
 }
 
-.sub{
+.upload-sub{
 
 font-size:15px;
 
+font-weight:600;
+
 color:#94a3b8;
 
-margin-bottom:24px;
-}
-
-.pick{
-
-display:inline-flex;
-
-align-items:center;
-
-justify-content:center;
-
-padding:15px 24px;
-
-border-radius:18px;
-
-background:
-linear-gradient(
-135deg,
-#2563eb,
-#7c3aed
-);
-
-font-weight:700;
+word-break:break-word;
 }
 
 input[type=file]{
 display:none;
 }
 
+/* ===================== */
+/* CONTROLS */
+/* ===================== */
+
 .controls{
 
 display:flex;
 
-gap:15px;
+gap:14px;
 
-margin-top:22px;
+margin-top:20px;
+
+align-items:flex-start;
 }
 
-select{
+/* ===================== */
+/* DROPDOWN */
+/* ===================== */
+
+.dropdown{
+
+position:relative;
 
 flex:1;
-
-padding:16px;
-
-border:none;
-
-outline:none;
-
-border-radius:18px;
-
-background:
-rgba(255,255,255,0.06);
-
-color:white;
-
-font-size:15px;
 }
 
-button{
+.dropdown-head{
 
-padding:16px 28px;
+height:64px;
 
-border:none;
+padding:0 24px;
 
-border-radius:18px;
+border-radius:24px;
 
-font-weight:700;
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+background:
+linear-gradient(
+180deg,
+rgba(255,255,255,0.06),
+rgba(255,255,255,0.03)
+);
+
+border:
+1px solid rgba(56,189,248,0.2);
+
+cursor:pointer;
+
+transition:0.25s ease;
+}
+
+.dropdown-head:hover{
+
+background:
+rgba(56,189,248,0.05);
+}
+
+.dropdown-text{
+
+font-size:16px;
+
+font-weight:800;
+
+font-style:italic;
+}
+
+.arrow{
+
+width:12px;
+height:12px;
+
+border-right:2px solid #38bdf8;
+border-bottom:2px solid #38bdf8;
+
+transform:rotate(45deg);
+
+transition:0.25s ease;
+}
+
+.dropdown.active .arrow{
+
+transform:
+rotate(225deg)
+translateY(-3px);
+}
+
+.dropdown-menu{
+
+position:absolute;
+
+top:74px;
+left:0;
+
+width:100%;
+
+background:
+rgba(15,23,42,0.98);
+
+backdrop-filter:blur(24px);
+
+border:
+1px solid rgba(56,189,248,0.18);
+
+border-radius:24px;
+
+overflow:hidden;
+
+opacity:0;
+
+visibility:hidden;
+
+transform:
+translateY(-8px);
+
+transition:0.25s ease;
+
+z-index:999;
+}
+
+.dropdown.active .dropdown-menu{
+
+opacity:1;
+
+visibility:visible;
+
+transform:
+translateY(0);
+}
+
+.dropdown-item{
+
+padding:18px 22px;
 
 font-size:15px;
 
+font-weight:800;
+
+font-style:italic;
+
 cursor:pointer;
+
+transition:0.2s ease;
+}
+
+.dropdown-item:hover{
+
+background:
+rgba(56,189,248,0.08);
+}
+
+/* ===================== */
+/* BUTTON */
+/* ===================== */
+
+.convert-btn{
+
+height:64px;
+
+padding:0 36px;
+
+border:none;
+
+border-radius:24px;
 
 background:
 linear-gradient(
@@ -299,170 +530,200 @@ linear-gradient(
 #7c3aed
 );
 
-color:white;
-
-box-shadow:
-0 10px 25px rgba(59,130,246,0.35);
-}
-
-.side-title{
-
-font-size:24px;
+font-size:16px;
 
 font-weight:800;
 
-margin-bottom:18px;
+font-style:italic;
+
+color:white;
+
+cursor:pointer;
+
+transition:0.25s ease;
+
+box-shadow:
+0 16px 40px rgba(59,130,246,0.35);
 }
 
-.feature{
+.convert-btn:hover{
 
-padding:18px;
+transform:translateY(-1px);
 
-border-radius:22px;
-
-background:
-rgba(255,255,255,0.04);
-
-border:
-1px solid rgba(255,255,255,0.06);
-
-margin-bottom:14px;
+box-shadow:
+0 18px 50px rgba(59,130,246,0.45);
 }
 
-.feature h3{
-
-font-size:17px;
-
-margin-bottom:8px;
-}
-
-.feature p{
-
-color:#94a3b8;
-
-line-height:1.7;
-
-font-size:14px;
-}
-
-.api{
-
-margin-top:22px;
-
-padding:20px;
-
-border-radius:24px;
-
-background:
-rgba(255,255,255,0.04);
-
-border:
-1px solid rgba(255,255,255,0.06);
-}
-
-.code{
-
-margin-top:12px;
-
-background:#050816;
-
-padding:16px;
-
-border-radius:18px;
-
-overflow:auto;
-
-font-size:13px;
-
-font-family:monospace;
-
-color:#93c5fd;
-}
+/* ===================== */
+/* RESULT */
+/* ===================== */
 
 .result{
 
-margin-top:25px;
-
 display:none;
+
+margin-top:28px;
 }
 
 .result img{
 
 width:100%;
 
-border-radius:24px;
+border-radius:28px;
 
 border:
 1px solid rgba(255,255,255,0.08);
-
-margin-bottom:18px;
 }
 
-.download{
+.actions{
 
 display:flex;
 
 justify-content:center;
+
+margin-top:18px;
 }
 
-.download a{
+.download{
 
-padding:15px 22px;
+padding:15px 24px;
 
 border-radius:18px;
 
+background:
+rgba(255,255,255,0.06);
+
+border:
+1px solid rgba(255,255,255,0.08);
+
 text-decoration:none;
+
+color:white;
 
 font-weight:700;
 
-background:
-linear-gradient(
-135deg,
-#2563eb,
-#7c3aed
-);
-
-color:white;
+font-style:italic;
 }
 
-.filename{
-
-margin-top:16px;
-
-color:#94a3b8;
-
-font-size:14px;
-
-text-align:center;
-}
+/* ===================== */
+/* LOADER */
+/* ===================== */
 
 .loader{
 
+position:fixed;
+
+inset:0;
+
+background:
+rgba(1,4,9,0.82);
+
+backdrop-filter:blur(18px);
+
 display:none;
 
-margin-top:20px;
+align-items:center;
 
-text-align:center;
+justify-content:center;
 
-color:#94a3b8;
+z-index:9999;
 }
 
-@media(max-width:960px){
+.spinner{
 
-.layout{
-grid-template-columns:1fr;
+width:90px;
+height:90px;
+
+border-radius:50%;
+
+border:5px solid rgba(255,255,255,0.08);
+
+border-top-color:#38bdf8;
+
+animation:spin 1s linear infinite;
 }
 
-h1{
-font-size:48px;
+@keyframes spin{
+
+0%{
+transform:rotate(0deg);
 }
 
-.card{
-padding:24px;
+100%{
+transform:rotate(360deg);
+}
+}
+
+/* ===================== */
+/* MOBILE */
+/* ===================== */
+
+@media(max-width:768px){
+
+.wrapper{
+padding:30px 14px 50px;
+}
+
+.title{
+
+gap:2px;
+
+align-items:flex-end;
+
+padding:0;
+}
+
+.title-main{
+
+font-size:70px;
+
+letter-spacing:-5px;
+
+padding-bottom:6px;
+}
+
+.title-gradient{
+
+font-size:70px;
+
+letter-spacing:-4px;
+
+padding-right:10px;
+
+padding-bottom:8px;
+
+line-height:1.12;
+}
+
+.subtitle{
+font-size:15px;
+}
+
+.main{
+padding:18px;
+}
+
+.upload{
+padding:18px;
+gap:18px;
+}
+
+.upload-icon{
+width:72px;
+height:72px;
+}
+
+.upload-title{
+font-size:28px;
 }
 
 .controls{
 flex-direction:column;
+}
+
+.dropdown,
+.convert-btn{
+width:100%;
 }
 }
 
@@ -472,82 +733,85 @@ flex-direction:column;
 
 <body>
 
-<div class="container">
+<div class="bg-glow"></div>
+
+<div class="wrapper">
 
 <div class="hero">
 
 <div class="badge">
 
-<div class="dot"></div>
+<div class="badge-dot"></div>
 
 <span>
-Modern Texture Converter
+Texture Converter
 </span>
 
 </div>
 
-<h1>
+<div class="title">
 
+<div class="title-main">
 KTX
-<span class="gradient">
+</div>
+
+<div class="title-gradient">
 Studio
-</span>
-
-</h1>
-
-<p class="desc">
-
-Convert KTX and PNG textures instantly
-with live preview and API support.
-
-</p>
+</div>
 
 </div>
 
-<div class="layout">
+<div class="subtitle">
+KTX ↔ PNG
+</div>
 
-<div class="card">
+</div>
 
-<form
-id="uploadForm"
->
+<div class="main">
+
+<form id="uploadForm">
 
 <label
 class="upload"
 for="fileInput"
 >
 
-<div class="icon">
+<div class="upload-icon">
 
 <svg
-width="42"
-height="42"
+viewBox="0 0 24 24"
 fill="none"
-stroke="white"
-stroke-width="2"
+stroke="currentColor"
+stroke-width="1.8"
 stroke-linecap="round"
 stroke-linejoin="round"
-viewBox="0 0 24 24"
 >
 
-<path d="M12 16V4"></path>
-<path d="M7 9l5-5 5 5"></path>
-<path d="M20 16.58A5 5 0 0018 7h-1.26A8 8 0 104 16.25"></path>
+<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+
+<polyline points="17 8 12 3 7 8"/>
+
+<line x1="12" y1="3" x2="12" y2="15"/>
 
 </svg>
 
 </div>
 
-<div class="title">
-Upload Texture
+<div>
+
+<div class="upload-title">
+Select Texture
 </div>
 
-<div class="sub">
-Choose KTX or PNG texture
+<div
+class="upload-sub"
+id="fileName"
+>
+
+No file selected
+
 </div>
 
-<div class="pick">
-Choose File
 </div>
 
 </label>
@@ -555,56 +819,91 @@ Choose File
 <input
 type="file"
 id="fileInput"
-name="file"
 required
 >
 
-<div class="filename" id="filename">
-No file selected
-</div>
-
 <div class="controls">
 
-<select id="mode">
+<div
+class="dropdown"
+id="dropdown"
+>
 
-<option value="ktx_to_png">
+<div
+class="dropdown-head"
+onclick="toggleDropdown()"
+>
+
+<div
+class="dropdown-text"
+id="selectedText"
+>
+
 KTX → PNG
-</option>
 
-<option value="png_to_ktx">
+</div>
+
+<div class="arrow"></div>
+
+</div>
+
+<div class="dropdown-menu">
+
+<div
+class="dropdown-item"
+onclick="setMode('ktx_to_png','KTX → PNG')"
+>
+
+KTX → PNG
+
+</div>
+
+<div
+class="dropdown-item"
+onclick="setMode('png_to_ktx','PNG → KTX')"
+>
+
 PNG → KTX
-</option>
 
-</select>
+</div>
 
-<button type="submit">
+</div>
+
+</div>
+
+<button
+type="submit"
+class="convert-btn"
+>
+
 Convert
+
 </button>
 
 </div>
 
 </form>
 
-<div class="loader" id="loader">
-Converting texture...
-</div>
-
-<div class="result" id="result">
+<div
+class="result"
+id="result"
+>
 
 <img
 id="resultImg"
 src=""
 >
 
-<div class="download">
+<div class="actions">
 
 <a
 id="downloadBtn"
+class="download"
 href="#"
 download
 >
 
-Download Result
+Download
 
 </a>
 
@@ -614,141 +913,104 @@ Download Result
 
 </div>
 
-<div class="card">
-
-<div class="side-title">
-Features
 </div>
 
-<div class="feature">
+<div
+class="loader"
+id="loader"
+>
 
-<h3>
-Live Conversion
-</h3>
-
-<p>
-Convert textures instantly
-without page reload.
-</p>
-
-</div>
-
-<div class="feature">
-
-<h3>
-Modern Preview
-</h3>
-
-<p>
-Preview converted texture
-directly inside browser.
-</p>
-
-</div>
-
-<div class="feature">
-
-<h3>
-API Support
-</h3>
-
-<p>
-Use converter directly
-inside apps and scripts.
-</p>
-
-</div>
-
-<div class="api">
-
-<h3>
-API Endpoint
-</h3>
-
-<div class="code">
-
-POST /api/convert
-
-multipart/form-data
-
-file=&lt;texture&gt;
-mode=ktx_to_png
-
-</div>
-
-</div>
-
-</div>
-
-</div>
+<div class="spinner"></div>
 
 </div>
 
 <script>
 
-const form =
-document.getElementById(
-"uploadForm"
-);
+let selectedMode =
+"ktx_to_png";
 
-const fileInput =
-document.getElementById(
+function toggleDropdown(){
+
+document
+.getElementById(
+"dropdown"
+)
+.classList
+.toggle(
+"active"
+);
+}
+
+function setMode(
+value,
+text
+){
+
+selectedMode =
+value;
+
+document
+.getElementById(
+"selectedText"
+)
+.innerText =
+text;
+
+document
+.getElementById(
+"dropdown"
+)
+.classList
+.remove(
+"active"
+);
+}
+
+document
+.getElementById(
 "fileInput"
-);
-
-const filename =
-document.getElementById(
-"filename"
-);
-
-const loader =
-document.getElementById(
-"loader"
-);
-
-const result =
-document.getElementById(
-"result"
-);
-
-const resultImg =
-document.getElementById(
-"resultImg"
-);
-
-const downloadBtn =
-document.getElementById(
-"downloadBtn"
-);
-
-fileInput.addEventListener(
+)
+.addEventListener(
 "change",
 function(){
 
 if(this.files[0]){
 
-filename.innerText =
+document
+.getElementById(
+"fileName"
+)
+.innerText =
 this.files[0].name;
 }
 }
 );
 
-form.addEventListener(
+document
+.getElementById(
+"uploadForm"
+)
+.addEventListener(
 "submit",
 async function(e){
 
 e.preventDefault();
 
 const file =
-fileInput.files[0];
+document
+.getElementById(
+"fileInput"
+)
+.files[0];
 
 if(!file) return;
 
-loader.style.display =
-"block";
-
-result.style.display =
-"none";
+document
+.getElementById(
+"loader"
+)
+.style.display =
+"flex";
 
 const formData =
 new FormData();
@@ -760,10 +1022,10 @@ file
 
 formData.append(
 "mode",
-document.getElementById(
-"mode"
-).value
+selectedMode
 );
+
+try{
 
 const response =
 await fetch(
@@ -777,24 +1039,48 @@ body:formData
 const data =
 await response.json();
 
-loader.style.display =
+document
+.getElementById(
+"loader"
+)
+.style.display =
 "none";
 
 if(data.success){
 
-result.style.display =
+document
+.getElementById(
+"result"
+)
+.style.display =
 "block";
 
-resultImg.src =
+document
+.getElementById(
+"resultImg"
+)
+.src =
 data.preview;
 
-downloadBtn.href =
+document
+.getElementById(
+"downloadBtn"
+)
+.href =
 data.download;
 }
-else{
+
+}catch(err){
+
+document
+.getElementById(
+"loader"
+)
+.style.display =
+"none";
 
 alert(
-data.error
+"Conversion failed"
 );
 }
 }
