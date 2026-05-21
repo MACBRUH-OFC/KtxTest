@@ -288,111 +288,12 @@ def convert_png_to_ktx(
 # WEBSITE
 # =========================================================
 
-@app.route(
-    "/",
-    methods=["GET", "POST"]
-)
+@app.route("/")
 def home():
 
-    try:
-
-        if request.method == "POST":
-
-            mode = request.form.get(
-                "mode"
-            )
-
-            file = request.files[
-                "file"
-            ]
-
-            if not file:
-
-                raise Exception(
-                    "No file uploaded"
-                )
-
-            ext = os.path.splitext(
-                file.filename
-            )[1]
-
-            unique = str(
-                uuid.uuid4()
-            )
-
-            input_path = os.path.join(
-                UPLOAD_FOLDER,
-                unique + ext
-            )
-
-            file.save(input_path)
-
-            # =============================================
-
-            if mode == "ktx_to_png":
-
-                output_filename = (
-                    unique + ".png"
-                )
-
-                output_path = os.path.join(
-                    UPLOAD_FOLDER,
-                    output_filename
-                )
-
-                convert_ktx_to_png(
-                    input_path,
-                    output_path
-                )
-
-            # =============================================
-
-            elif mode == "png_to_ktx":
-
-                output_filename = (
-                    unique + ".ktx"
-                )
-
-                output_path = os.path.join(
-                    UPLOAD_FOLDER,
-                    output_filename
-                )
-
-                convert_png_to_ktx(
-                    input_path,
-                    output_path
-                )
-
-            else:
-
-                raise Exception(
-                    "Invalid mode selected"
-                )
-
-            preview_url = url_for(
-                "uploaded_file",
-                filename=output_filename
-            )
-
-            return render_template(
-                "result.html",
-                preview_url=preview_url,
-                download_url=preview_url
-            )
-
-        return render_template(
-            "index.html"
-        )
-
-    except Exception:
-
-        return f"""
-        <h1>ERROR</h1>
-
-        <pre>
-{traceback.format_exc()}
-        </pre>
-        """
+    return render_template(
+        "index.html"
+    )
 
 # =========================================================
 # API
