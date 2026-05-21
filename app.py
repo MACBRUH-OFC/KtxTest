@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, send_file
 from PIL import Image
+import texture2ddecoder
 import struct
 import os
 import uuid
@@ -9,41 +10,139 @@ app = Flask(__name__)
 
 UPLOAD_FOLDER = "uploads"
 
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(
+    UPLOAD_FOLDER,
+    exist_ok=True
+)
 
-def convert_ktx_to_png(input_path, output_path):
+def convert_ktx_to_png(
+    input_path,
+    output_path
+):
 
     with open(input_path, 'rb') as f:
 
         header = f.read(64)
 
         if len(header) < 64:
-            raise Exception("Invalid KTX file")
+            raise Exception(
+                "Invalid KTX file"
+            )
 
-        width = struct.unpack('<I', header[36:40])[0]
-        height = struct.unpack('<I', header[40:44])[0]
+        magic = header[:12]
 
-        bytes_of_kv = struct.unpack('<I', header[60:64])[0]
+        if magic != b'\xABKTX 11\xBB\r\n\x1A\n':
+            raise Exception(
+                "Not a valid KTX file"
+            )
 
-        f.seek(64 + bytes_of_kv)
+        gl_internal_format = struct.unpack(
+            '<I',
+            header[28:32]
+        )[0]
 
-        image_size = struct.unpack('<I', f.read(4))[0]
+        width = struct.unpack(
+            '<I',
+            header[36:40]
+        )[0]
+
+        height = struct.unpack(
+            '<I',
+            header[40:44]
+        )[0]
+
+        bytes_of_kv = struct.unpack(
+            '<I',
+            header[60:64]
+        )[0]
+
+        f.seek(
+            64 + bytes_of_kv
+        )
+
+        image_size = struct.unpack(
+            '<I',
+            f.read(4)
+        )[0]
 
         data = f.read(image_size)
 
-    expected = width * height * 4
+    print(
+        "FORMAT:",
+        hex(gl_internal_format)
+    )
 
-    if len(data) < expected:
+    if gl_internal_format == 0x8D64:
+
+        decoded = texture2ddecoder.decode_etc1(
+            data,
+            width,
+            height
+        )
+
+    elif 0x93B0 <= gl_internal_format <= 0x93BD:
+
+        astc_formats = {
+
+            0x93B0: (4, 4),
+            0x93B1: (5, 4),
+            0x93B2: (5, 5),
+            0x93B3: (6, 5),
+            0x93B4: (6, 6),
+            0x93B5: (8, 5),
+            0x93B6: (8, 6),
+            0x93B7: (8, 8),
+            0x93B8: (10, 5),
+            0x93B9: (10, 6),
+            0x93BA: (10, 8),
+            0x93BB: (10, 10),
+            0x93BC: (12, 10),
+            0x93BD: (12, 12)
+
+        }
+
+        if gl_internal_format not in astc_formats:
+
+            raise Exception(
+                f"Unsupported ASTC format: {hex(gl_internal_format)}"
+            )
+
+        bx, by = astc_formats[
+            gl_internal_format
+        ]
+
+        decoded = texture2ddecoder.decode_astc(
+            data,
+            width,
+            height,
+            bx,
+            by
+        )
+
+    elif gl_internal_format == 0x8058:
+
+        expected = width * height * 4
+
+        if len(data) < expected:
+
+            raise Exception(
+                f"Texture data too small.\n"
+                f"Expected: {expected}\n"
+                f"Found: {len(data)}"
+            )
+
+        decoded = data[:expected]
+
+    else:
+
         raise Exception(
-            f"Texture data too small.\n"
-            f"Expected: {expected}\n"
-            f"Found: {len(data)}"
+            f"Unsupported format: {hex(gl_internal_format)}"
         )
 
     img = Image.frombytes(
         "RGBA",
         (width, height),
-        data[:expected]
+        decoded
     )
 
     r, g, b, a = img.split()
@@ -53,15 +152,24 @@ def convert_ktx_to_png(input_path, output_path):
         (b, g, r, a)
     )
 
-    img = img.transpose(Image.FLIP_TOP_BOTTOM)
+    img = img.transpose(
+        Image.FLIP_TOP_BOTTOM
+    )
 
     img.save(output_path)
 
-def convert_png_to_ktx(input_path, output_path):
+def convert_png_to_ktx(
+    input_path,
+    output_path
+):
 
-    img = Image.open(input_path).convert("RGBA")
+    img = Image.open(
+        input_path
+    ).convert("RGBA")
 
-    img = img.transpose(Image.FLIP_TOP_BOTTOM)
+    img = img.transpose(
+        Image.FLIP_TOP_BOTTOM
+    )
 
     r, g, b, a = img.split()
 
@@ -78,7 +186,12 @@ def convert_png_to_ktx(input_path, output_path):
 
     kv_value = b"S=r,T=d"
 
-    kv_pair = kv_key + b"\x00" + kv_value + b"\x00"
+    kv_pair = (
+        kv_key +
+        b"\x00" +
+        kv_value +
+        b"\x00"
+    )
 
     kv_entry = struct.pack(
         '<I',
@@ -86,7 +199,9 @@ def convert_png_to_ktx(input_path, output_path):
     ) + kv_pair
 
     padding = (
-        4 - (len(kv_entry) % 4)
+        4 - (
+            len(kv_entry) % 4
+        )
     ) % 4
 
     kv_block = kv_entry + (
@@ -95,18 +210,31 @@ def convert_png_to_ktx(input_path, output_path):
 
     header = struct.pack(
         '<12sIIIIIIIIIIII',
+
         b'\xABKTX 11\xBB\r\n\x1A\n',
+
         0x04030201,
+
         0x1401,
+
         1,
+
         0x1908,
+
         0x8058,
+
         0x1908,
+
         width,
+
         height,
+
         0,
+
         0,
+
         1,
+
         len(kv_block)
     )
 
@@ -125,20 +253,37 @@ def convert_png_to_ktx(input_path, output_path):
 
         f.write(pixel_data)
 
-@app.route("/", methods=["GET", "POST"])
+@app.route(
+    "/",
+    methods=["GET", "POST"]
+)
 def home():
 
     try:
 
         if request.method == "POST":
 
-            mode = request.form.get("mode")
+            mode = request.form.get(
+                "mode"
+            )
 
-            file = request.files["file"]
+            file = request.files[
+                "file"
+            ]
 
-            ext = os.path.splitext(file.filename)[1]
+            if not file:
 
-            unique = str(uuid.uuid4())
+                raise Exception(
+                    "No file uploaded"
+                )
+
+            ext = os.path.splitext(
+                file.filename
+            )[1]
+
+            unique = str(
+                uuid.uuid4()
+            )
 
             input_path = os.path.join(
                 UPLOAD_FOLDER,
@@ -181,9 +326,17 @@ def home():
                     as_attachment=True
                 )
 
-        return render_template("index.html")
+            else:
 
-    except Exception as e:
+                raise Exception(
+                    "Invalid mode selected"
+                )
+
+        return render_template(
+            "index.html"
+        )
+
+    except Exception:
 
         return f"""
         <h1>ERROR</h1>
@@ -197,5 +350,6 @@ if __name__ == "__main__":
 
     app.run(
         host="0.0.0.0",
-        port=10000
+        port=10000,
+        debug=True
     )
