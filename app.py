@@ -1,5 +1,14 @@
-from flask import Flask, render_template, request, send_file
+from flask import (
+    Flask,
+    render_template,
+    request,
+    send_file,
+    jsonify,
+    url_for
+)
+
 from PIL import Image
+
 import texture2ddecoder
 import struct
 import os
@@ -15,6 +24,10 @@ os.makedirs(
     exist_ok=True
 )
 
+# =========================================================
+# KTX -> PNG
+# =========================================================
+
 def convert_ktx_to_png(
     input_path,
     output_path
@@ -25,6 +38,7 @@ def convert_ktx_to_png(
         header = f.read(64)
 
         if len(header) < 64:
+
             raise Exception(
                 "Invalid KTX file"
             )
@@ -32,6 +46,7 @@ def convert_ktx_to_png(
         magic = header[:12]
 
         if magic != b'\xABKTX 11\xBB\r\n\x1A\n':
+
             raise Exception(
                 "Not a valid KTX file"
             )
@@ -72,6 +87,10 @@ def convert_ktx_to_png(
         hex(gl_internal_format)
     )
 
+    # =====================================================
+    # ETC1
+    # =====================================================
+
     if gl_internal_format == 0x8D64:
 
         decoded = texture2ddecoder.decode_etc1(
@@ -79,6 +98,10 @@ def convert_ktx_to_png(
             width,
             height
         )
+
+    # =====================================================
+    # ASTC
+    # =====================================================
 
     elif 0x93B0 <= gl_internal_format <= 0x93BD:
 
@@ -119,6 +142,10 @@ def convert_ktx_to_png(
             by
         )
 
+    # =====================================================
+    # RAW RGBA
+    # =====================================================
+
     elif gl_internal_format == 0x8058:
 
         expected = width * height * 4
@@ -157,6 +184,10 @@ def convert_ktx_to_png(
     )
 
     img.save(output_path)
+
+# =========================================================
+# PNG -> KTX
+# =========================================================
 
 def convert_png_to_ktx(
     input_path,
@@ -253,6 +284,10 @@ def convert_png_to_ktx(
 
         f.write(pixel_data)
 
+# =========================================================
+# WEBSITE
+# =========================================================
+
 @app.route(
     "/",
     methods=["GET", "POST"]
@@ -292,11 +327,17 @@ def home():
 
             file.save(input_path)
 
+            # =============================================
+
             if mode == "ktx_to_png":
+
+                output_filename = (
+                    unique + ".png"
+                )
 
                 output_path = os.path.join(
                     UPLOAD_FOLDER,
-                    unique + ".png"
+                    output_filename
                 )
 
                 convert_ktx_to_png(
@@ -304,16 +345,17 @@ def home():
                     output_path
                 )
 
-                return send_file(
-                    output_path,
-                    as_attachment=True
-                )
+            # =============================================
 
             elif mode == "png_to_ktx":
 
+                output_filename = (
+                    unique + ".ktx"
+                )
+
                 output_path = os.path.join(
                     UPLOAD_FOLDER,
-                    unique + ".ktx"
+                    output_filename
                 )
 
                 convert_png_to_ktx(
@@ -321,16 +363,22 @@ def home():
                     output_path
                 )
 
-                return send_file(
-                    output_path,
-                    as_attachment=True
-                )
-
             else:
 
                 raise Exception(
                     "Invalid mode selected"
                 )
+
+            preview_url = url_for(
+                "uploaded_file",
+                filename=output_filename
+            )
+
+            return render_template(
+                "result.html",
+                preview_url=preview_url,
+                download_url=preview_url
+            )
 
         return render_template(
             "index.html"
@@ -345,6 +393,143 @@ def home():
 {traceback.format_exc()}
         </pre>
         """
+
+# =========================================================
+# API
+# =========================================================
+
+@app.route(
+    "/api/convert",
+    methods=["POST"]
+)
+def api_convert():
+
+    try:
+
+        mode = request.form.get(
+            "mode"
+        )
+
+        file = request.files.get(
+            "file"
+        )
+
+        if not file:
+
+            return jsonify({
+
+                "success": False,
+                "error": "No file uploaded"
+
+            }), 400
+
+        ext = os.path.splitext(
+            file.filename
+        )[1]
+
+        unique = str(
+            uuid.uuid4()
+        )
+
+        input_path = os.path.join(
+            UPLOAD_FOLDER,
+            unique + ext
+        )
+
+        file.save(input_path)
+
+        # =============================================
+
+        if mode == "ktx_to_png":
+
+            output_filename = (
+                unique + ".png"
+            )
+
+            output_path = os.path.join(
+                UPLOAD_FOLDER,
+                output_filename
+            )
+
+            convert_ktx_to_png(
+                input_path,
+                output_path
+            )
+
+        # =============================================
+
+        elif mode == "png_to_ktx":
+
+            output_filename = (
+                unique + ".ktx"
+            )
+
+            output_path = os.path.join(
+                UPLOAD_FOLDER,
+                output_filename
+            )
+
+            convert_png_to_ktx(
+                input_path,
+                output_path
+            )
+
+        else:
+
+            return jsonify({
+
+                "success": False,
+                "error": "Invalid mode"
+
+            }), 400
+
+        file_url = url_for(
+            "uploaded_file",
+            filename=output_filename,
+            _external=True
+        )
+
+        return jsonify({
+
+            "success": True,
+
+            "mode": mode,
+
+            "download": file_url,
+
+            "preview": file_url
+
+        })
+
+    except Exception as e:
+
+        return jsonify({
+
+            "success": False,
+
+            "error": str(e),
+
+            "traceback": traceback.format_exc()
+
+        }), 500
+
+# =========================================================
+# FILE SERVER
+# =========================================================
+
+@app.route(
+    "/uploads/<filename>"
+)
+def uploaded_file(filename):
+
+    return send_file(
+        os.path.join(
+            UPLOAD_FOLDER,
+            filename
+        )
+    )
+
+# =========================================================
 
 if __name__ == "__main__":
 
