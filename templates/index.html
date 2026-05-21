@@ -1,1092 +1,631 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-/>
-
-<title>KTX Studio</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-
-<style>
-
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&display=swap');
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-body{
-
-font-family:
-'Space Grotesk',
-sans-serif;
-
-background:
-radial-gradient(
-circle at top,
-#15284d 0%,
-#030712 68%
-);
-
-min-height:100vh;
-
-overflow-x:hidden;
-
-color:white;
-}
-
-.bg-glow{
-
-position:fixed;
-
-top:-420px;
-left:50%;
-
-transform:translateX(-50%);
-
-width:1100px;
-height:1100px;
-
-background:
-radial-gradient(
-circle,
-rgba(56,189,248,0.18),
-transparent 70%
-);
-
-filter:blur(90px);
-
-pointer-events:none;
-
-z-index:0;
-}
-
-.wrapper{
-
-position:relative;
-
-z-index:1;
-
-max-width:860px;
-
-margin:auto;
-
-padding:36px 16px 60px;
-}
-
-/* ===================== */
-/* HERO */
-/* ===================== */
-
-.hero{
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-justify-content:center;
-
-margin-bottom:42px;
-
-text-align:center;
-}
-
-.badge{
-
-display:inline-flex;
-
-align-items:center;
-
-gap:10px;
-
-padding:12px 22px;
-
-border-radius:999px;
-
-background:
-rgba(255,255,255,0.05);
-
-border:
-1px solid rgba(255,255,255,0.08);
-
-backdrop-filter:blur(20px);
-
-margin-bottom:34px;
-}
-
-.badge-dot{
-
-width:10px;
-height:10px;
-
-border-radius:50%;
-
-background:#38bdf8;
-
-box-shadow:
-0 0 18px #38bdf8;
-}
-
-.badge span{
-
-font-size:15px;
-
-font-weight:700;
-}
-
-/* ===================== */
-/* TITLE */
-/* ===================== */
-
-.title{
-
-display:flex;
-
-justify-content:center;
-
-align-items:flex-end;
-
-gap:8px;
-
-flex-wrap:nowrap;
-
-line-height:1;
-
-padding:0 12px;
-
-margin-bottom:18px;
-
-overflow:visible;
-}
-
-.title-main{
-
-font-size:108px;
-
-font-weight:800;
-
-font-style:italic;
-
-letter-spacing:-7px;
-
-line-height:1;
-
-padding-bottom:8px;
-
-color:white;
-
-text-shadow:
-0 8px 30px rgba(255,255,255,0.08);
-}
-
-.title-gradient{
-
-font-size:108px;
-
-font-weight:800;
-
-font-style:italic;
-
-letter-spacing:-7px;
-
-line-height:1.08;
-
-padding-right:14px;
-
-padding-bottom:10px;
-
-overflow:visible;
-
-background:
-linear-gradient(
-90deg,
-#38bdf8 0%,
-#60a5fa 35%,
-#8b5cf6 100%
-);
-
--webkit-background-clip:text;
-
--webkit-text-fill-color:transparent;
-
-text-shadow:
-0 8px 30px rgba(139,92,246,0.20);
-}
-
-.subtitle{
-
-font-size:18px;
-
-font-weight:700;
-
-color:#94a3b8;
-
-letter-spacing:0.5px;
-}
-
-/* ===================== */
-/* MAIN CARD */
-/* ===================== */
-
-.main{
-
-background:
-rgba(15,23,42,0.82);
-
-backdrop-filter:blur(26px);
-
-border:
-1px solid rgba(255,255,255,0.08);
-
-border-radius:42px;
-
-padding:24px;
-
-box-shadow:
-0 30px 90px rgba(0,0,0,0.45);
-}
-
-.upload{
-
-display:flex;
-
-align-items:center;
-
-gap:22px;
-
-padding:24px;
-
-border-radius:30px;
-
-background:
-linear-gradient(
-180deg,
-rgba(255,255,255,0.05),
-rgba(255,255,255,0.03)
-);
-
-border:
-1px solid rgba(255,255,255,0.08);
-
-cursor:pointer;
-
-transition:0.25s ease;
-}
-
-.upload:hover{
-
-border-color:
-rgba(56,189,248,0.35);
-
-background:
-rgba(56,189,248,0.05);
-}
-
-.upload-icon{
-
-width:88px;
-height:88px;
-
-border-radius:30px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-background:
-linear-gradient(
-135deg,
-#2563eb,
-#7c3aed
-);
-
-box-shadow:
-0 14px 40px rgba(59,130,246,0.35);
-
-flex-shrink:0;
-}
-
-.upload-icon svg{
-
-width:38px;
-height:38px;
-
-color:white;
-}
-
-.upload-title{
-
-font-size:36px;
-
-font-weight:800;
-
-font-style:italic;
-
-line-height:1;
-
-margin-bottom:10px;
-}
-
-.upload-sub{
-
-font-size:15px;
-
-font-weight:600;
-
-color:#94a3b8;
-
-word-break:break-word;
-}
-
-input[type=file]{
-display:none;
-}
-
-/* ===================== */
-/* CONTROLS */
-/* ===================== */
-
-.controls{
-
-display:flex;
-
-gap:14px;
-
-margin-top:20px;
-
-align-items:flex-start;
-}
-
-/* ===================== */
-/* DROPDOWN */
-/* ===================== */
-
-.dropdown{
-
-position:relative;
-
-flex:1;
-}
-
-.dropdown-head{
-
-height:64px;
-
-padding:0 24px;
-
-border-radius:24px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-background:
-linear-gradient(
-180deg,
-rgba(255,255,255,0.06),
-rgba(255,255,255,0.03)
-);
-
-border:
-1px solid rgba(56,189,248,0.2);
-
-cursor:pointer;
-
-transition:0.25s ease;
-}
-
-.dropdown-head:hover{
-
-background:
-rgba(56,189,248,0.05);
-}
-
-.dropdown-text{
-
-font-size:16px;
-
-font-weight:800;
-
-font-style:italic;
-}
-
-.arrow{
-
-width:12px;
-height:12px;
-
-border-right:2px solid #38bdf8;
-border-bottom:2px solid #38bdf8;
-
-transform:rotate(45deg);
-
-transition:0.25s ease;
-}
-
-.dropdown.active .arrow{
-
-transform:
-rotate(225deg)
-translateY(-3px);
-}
-
-.dropdown-menu{
-
-position:absolute;
-
-top:74px;
-left:0;
-
-width:100%;
-
-background:
-rgba(15,23,42,0.98);
-
-backdrop-filter:blur(24px);
-
-border:
-1px solid rgba(56,189,248,0.18);
-
-border-radius:24px;
-
-overflow:hidden;
-
-opacity:0;
-
-visibility:hidden;
-
-transform:
-translateY(-8px);
-
-transition:0.25s ease;
-
-z-index:999;
-}
-
-.dropdown.active .dropdown-menu{
-
-opacity:1;
-
-visibility:visible;
-
-transform:
-translateY(0);
-}
-
-.dropdown-item{
-
-padding:18px 22px;
-
-font-size:15px;
-
-font-weight:800;
-
-font-style:italic;
-
-cursor:pointer;
-
-transition:0.2s ease;
-}
-
-.dropdown-item:hover{
-
-background:
-rgba(56,189,248,0.08);
-}
-
-/* ===================== */
-/* BUTTON */
-/* ===================== */
-
-.convert-btn{
-
-height:64px;
-
-padding:0 36px;
-
-border:none;
-
-border-radius:24px;
-
-background:
-linear-gradient(
-135deg,
-#2563eb,
-#7c3aed
-);
-
-font-size:16px;
-
-font-weight:800;
-
-font-style:italic;
-
-color:white;
-
-cursor:pointer;
-
-transition:0.25s ease;
-
-box-shadow:
-0 16px 40px rgba(59,130,246,0.35);
-}
-
-.convert-btn:hover{
-
-transform:translateY(-1px);
-
-box-shadow:
-0 18px 50px rgba(59,130,246,0.45);
-}
-
-/* ===================== */
-/* RESULT */
-/* ===================== */
-
-.result{
-
-display:none;
-
-margin-top:28px;
-}
-
-.result img{
-
-width:100%;
-
-border-radius:28px;
-
-border:
-1px solid rgba(255,255,255,0.08);
-}
-
-.actions{
-
-display:flex;
-
-justify-content:center;
-
-margin-top:18px;
-}
-
-.download{
-
-padding:15px 24px;
-
-border-radius:18px;
-
-background:
-rgba(255,255,255,0.06);
-
-border:
-1px solid rgba(255,255,255,0.08);
-
-text-decoration:none;
-
-color:white;
-
-font-weight:700;
-
-font-style:italic;
-}
-
-/* ===================== */
-/* LOADER */
-/* ===================== */
-
-.loader{
-
-position:fixed;
-
-inset:0;
-
-background:
-rgba(1,4,9,0.82);
-
-backdrop-filter:blur(18px);
-
-display:none;
-
-align-items:center;
-
-justify-content:center;
-
-z-index:9999;
-}
-
-.spinner{
-
-width:90px;
-height:90px;
-
-border-radius:50%;
-
-border:5px solid rgba(255,255,255,0.08);
-
-border-top-color:#38bdf8;
-
-animation:spin 1s linear infinite;
-}
-
-@keyframes spin{
-
-0%{
-transform:rotate(0deg);
-}
-
-100%{
-transform:rotate(360deg);
-}
-}
-
-/* ===================== */
-/* MOBILE */
-/* ===================== */
-
-@media(max-width:768px){
-
-.wrapper{
-padding:30px 14px 50px;
-}
-
-.title{
-
-gap:2px;
-
-align-items:flex-end;
-
-padding:0;
-}
-
-.title-main{
-
-font-size:70px;
-
-letter-spacing:-5px;
-
-padding-bottom:6px;
-}
-
-.title-gradient{
-
-font-size:70px;
-
-letter-spacing:-4px;
-
-padding-right:10px;
-
-padding-bottom:8px;
-
-line-height:1.12;
-}
-
-.subtitle{
-font-size:15px;
-}
-
-.main{
-padding:18px;
-}
-
-.upload{
-padding:18px;
-gap:18px;
-}
-
-.upload-icon{
-width:72px;
-height:72px;
-}
-
-.upload-title{
-font-size:28px;
-}
-
-.controls{
-flex-direction:column;
-}
-
-.dropdown,
-.convert-btn{
-width:100%;
-}
-}
-
-</style>
-
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>KTX Converter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: radial-gradient(circle at top, #0f2443 0%, #030712 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 12px;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at top, rgba(59, 130, 246, 0.12), transparent 50%);
+            pointer-events: none;
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ========================= */
+        /* HERO SECTION              */
+        /* ========================= */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            margin-bottom: 16px;
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #38bdf8;
+            box-shadow: 0 0 12px #38bdf8;
+        }
+
+        .badge span {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #94a3b8;
+        }
+
+        /* Fixed Title Row: Prevents text clipping on italic characters */
+        .main-title-row {
+            font-size: 42px;
+            font-weight: 800;
+            font-style: italic;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            white-space: nowrap;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-title-row .white-text {
+            color: white;
+        }
+
+        /* Added padding-right to protect the italic trailing 'R' from getting cut off */
+        .main-title-row .gradient-text {
+            background: linear-gradient(90deg, #38bdf8, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding-right: 6px; 
+        }
+
+        .sub {
+            font-size: 12px;
+            font-weight: 700;
+            color: #4b596f;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* ========================= */
+        /* MAIN CONTAINER CARD       */
+        /* ========================= */
+        .main {
+            background: rgba(10, 17, 32, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(30px);
+            border-radius: 28px;
+            padding: 24px;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* ========================= */
+        /* UPLOAD CONTAINER          */
+        /* ========================= */
+        .upload {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            border-radius: 20px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .upload:hover {
+            border-color: rgba(59, 130, 246, 0.35);
+            background: rgba(59, 130, 246, 0.03);
+        }
+
+        .upload-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25);
+            flex-shrink: 0;
+        }
+
+        .upload-icon svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+
+        .upload-title {
+            font-size: 20px;
+            font-weight: 700;
+            font-style: italic;
+            line-height: 1.2;
+            color: white;
+        }
+
+        .upload-sub {
+            font-size: 13px;
+            font-weight: 500;
+            color: #55657e;
+            word-break: break-word;
+            margin-top: 2px;
+        }
+
+        input[type=file] {
+            display: none;
+        }
+
+        /* ========================= */
+        /* CONTROLS & DROPDOWN       */
+        /* ========================= */
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .dropdown {
+            position: relative;
+            width: 100%;
+        }
+
+        .dropdown-head {
+            height: 52px;
+            padding: 0 18px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .dropdown-head:hover {
+            border-color: rgba(56, 189, 248, 0.25);
+        }
+
+        .dropdown-text {
+            font-size: 15px;
+            font-weight: 700;
+            font-style: italic;
+            color: #cbd5e1;
+        }
+
+        .arrow {
+            width: 8px;
+            height: 8px;
+            border-right: 2px solid #38bdf8;
+            border-bottom: 2px solid #38bdf8;
+            transform: rotate(45deg);
+            transition: 0.25s ease;
+            margin-top: -3px;
+        }
+
+        .dropdown.active .arrow {
+            transform: rotate(225deg);
+            margin-top: 3px;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 58px;
+            left: 0;
+            width: 100%;
+            background: #0b1324;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-6px);
+            transition: 0.2s ease;
+            z-index: 99;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .dropdown.active .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            padding: 12px 18px;
+            font-size: 14px;
+            font-weight: 700;
+            font-style: italic;
+            cursor: pointer;
+            color: #94a3b8;
+            transition: all 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(56, 189, 248, 0.06);
+            color: white;
+        }
+
+        /* ========================= */
+        /* ACTION CONVERT BUTTON     */
+        /* ========================= */
+        .convert-btn {
+            height: 52px;
+            width: 100%;
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            font-size: 16px;
+            font-weight: 700;
+            font-style: italic;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.25);
+        }
+
+        .convert-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 24px rgba(59, 130, 246, 0.35);
+        }
+
+        /* ========================= */
+        /* OUTPUT REGION             */
+        /* ========================= */
+        .output {
+            border-radius: 20px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .output-top {
+            padding: 12px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .output-title {
+            font-size: 15px;
+            font-weight: 700;
+            font-style: italic;
+            color: #94a3b8;
+        }
+
+        .output-status {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.04);
+            color: #4b596f;
+        }
+
+        .output-body {
+            padding: 24px 16px;
+            min-height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ========================= */
+        /* VIEW STATES               */
+        /* ========================= */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .empty-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            margin-bottom: 12px;
+        }
+
+        .empty-icon svg {
+            width: 24px;
+            height: 24px;
+            color: #334155;
+        }
+
+        .empty-title {
+            font-size: 18px;
+            font-weight: 700;
+            font-style: italic;
+            margin-bottom: 4px;
+            color: #cbd5e1;
+        }
+
+        .empty-sub {
+            font-size: 13px;
+            font-weight: 500;
+            color: #475569;
+        }
+
+        .loading {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .loader-wrap {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            margin-bottom: 14px;
+        }
+
+        .loader-ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #38bdf8;
+            animation: spin 1s linear infinite;
+        }
+        .loader-ring:nth-child(2) { inset: 7px; border-top-color: #8b5cf6; animation-duration: 1.3s; }
+        .loader-ring:nth-child(3) { inset: 14px; border-top-color: #2563eb; animation-duration: 1.6s; }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-title { font-size: 18px; font-weight: 700; font-style: italic; margin-bottom: 4px; }
+        .loading-sub { font-size: 13px; font-weight: 500; color: #55657e; }
+
+        .result {
+            display: none;
+            width: 100%;
+        }
+
+        .preview-image {
+            max-width: 100%;
+            max-height: 160px;
+            object-fit: contain;
+            margin: 0 auto 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #000;
+        }
+
+        .preview-actions {
+            display: flex;
+            justify-content: center;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.25), rgba(124, 58, 237, 0.25));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            font-style: italic;
+            color: white;
+            transition: background 0.2s;
+        }
+
+        .download-btn:hover {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.4), rgba(124, 58, 237, 0.4));
+        }
+
+        .download-btn svg { width: 16px; height: 16px; }
+
+        /* Responsive Breakpoint Scaling */
+        @media (max-width: 440px) {
+            .main-title-row {
+                font-size: 34px;
+                gap: 8px;
+            }
+            .main {
+                padding: 18px;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="bg-glow"></div>
-
 <div class="wrapper">
-
-<div class="hero">
-
-<div class="badge">
-
-<div class="badge-dot"></div>
-
-<span>
-Texture Converter
-</span>
-
-</div>
-
-<div class="title">
-
-<div class="title-main">
-KTX
-</div>
-
-<div class="title-gradient">
-Studio
-</div>
-
-</div>
-
-<div class="subtitle">
-KTX ↔ PNG
-</div>
-
-</div>
-
-<div class="main">
-
-<form id="uploadForm">
-
-<label
-class="upload"
-for="fileInput"
->
-
-<div class="upload-icon">
-
-<svg
-viewBox="0 0 24 24"
-fill="none"
-stroke="currentColor"
-stroke-width="1.8"
-stroke-linecap="round"
-stroke-linejoin="round"
->
-
-<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-
-<polyline points="17 8 12 3 7 8"/>
-
-<line x1="12" y1="3" x2="12" y2="15"/>
-
-</svg>
-
-</div>
-
-<div>
-
-<div class="upload-title">
-Select Texture
-</div>
-
-<div
-class="upload-sub"
-id="fileName"
->
-
-No file selected
-
-</div>
-
-</div>
-
-</label>
-
-<input
-type="file"
-id="fileInput"
-required
->
-
-<div class="controls">
-
-<div
-class="dropdown"
-id="dropdown"
->
-
-<div
-class="dropdown-head"
-onclick="toggleDropdown()"
->
-
-<div
-class="dropdown-text"
-id="selectedText"
->
-
-KTX → PNG
-
-</div>
-
-<div class="arrow"></div>
-
-</div>
-
-<div class="dropdown-menu">
-
-<div
-class="dropdown-item"
-onclick="setMode('ktx_to_png','KTX → PNG')"
->
-
-KTX → PNG
-
-</div>
-
-<div
-class="dropdown-item"
-onclick="setMode('png_to_ktx','PNG → KTX')"
->
-
-PNG → KTX
-
-</div>
-
-</div>
-
-</div>
-
-<button
-type="submit"
-class="convert-btn"
->
-
-Convert
-
-</button>
-
-</div>
-
-</form>
-
-<div
-class="result"
-id="result"
->
-
-<img
-id="resultImg"
-src=""
->
-
-<div class="actions">
-
-<a
-id="downloadBtn"
-class="download"
-href="#"
-download
->
-
-Download
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div
-class="loader"
-id="loader"
->
-
-<div class="spinner"></div>
-
+    <div class="hero">
+        <div class="badge">
+            <div class="badge-dot"></div>
+            <span>Texture Converter</span>
+        </div>
+        <div class="main-title-row">
+            <span class="white-text">KTX</span>
+            <span class="gradient-text">CONVERTER</span>
+        </div>
+        <div class="sub">KTX ↔ PNG</div>
+    </div>
+
+    <div class="main">
+        <form id="uploadForm">
+            <label class="upload" for="fileInput">
+                <div class="upload-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="17 8 12 3 7 8"/>
+                        <line x1="12" y1="3" x2="12" y2="15"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="upload-title">Select Texture</div>
+                    <div class="upload-sub" id="fileName">No file selected</div>
+                </div>
+            </label>
+            <input type="file" id="fileInput" required>
+
+            <div class="controls mt-2">
+                <div class="dropdown" id="dropdown">
+                    <div class="dropdown-head" onclick="toggleDropdown()">
+                        <div class="dropdown-text" id="selectedText">KTX → PNG</div>
+                        <div class="arrow"></div>
+                    </div>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item" onclick="setMode('ktx_to_png','KTX → PNG')">KTX → PNG</div>
+                        <div class="dropdown-item" onclick="setMode('png_to_ktx','PNG → KTX')">PNG → KTX</div>
+                    </div>
+                </div>
+                <button type="submit" class="convert-btn">Convert</button>
+            </div>
+        </form>
+
+        <div class="output">
+            <div class="output-top">
+                <div class="output-title">Output</div>
+                <div class="output-status" id="outputStatus">Idle</div>
+            </div>
+            <div class="output-body">
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                    </div>
+                    <div class="empty-title">Ready</div>
+                    <div class="empty-sub">Converted texture will appear here</div>
+                </div>
+
+                <div class="loading" id="loading">
+                    <div class="loader-wrap">
+                        <div class="loader-ring"></div>
+                        <div class="loader-ring"></div>
+                        <div class="loader-ring"></div>
+                    </div>
+                    <div class="loading-title">Converting</div>
+                    <div class="loading-sub">Rendering texture preview...</div>
+                </div>
+
+                <div class="result" id="result">
+                    <img id="resultImg" class="preview-image" src="">
+                    <div class="preview-actions">
+                        <a id="downloadBtn" class="download-btn" href="#" download>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            Download
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
+    let selectedMode = "ktx_to_png";
 
-let selectedMode =
-"ktx_to_png";
+    function toggleDropdown(){
+        document.getElementById("dropdown").classList.toggle("active");
+    }
 
-function toggleDropdown(){
+    function setMode(value, text){
+        selectedMode = value;
+        document.getElementById("selectedText").innerText = text;
+        document.getElementById("dropdown").classList.remove("active");
+    }
 
-document
-.getElementById(
-"dropdown"
-)
-.classList
-.toggle(
-"active"
-);
-}
+    document.addEventListener("click", function(e){
+        if(!document.getElementById("dropdown").contains(e.target)){
+            document.getElementById("dropdown").classList.remove("active");
+        }
+    });
 
-function setMode(
-value,
-text
-){
+    document.getElementById("fileInput").addEventListener("change", function(){
+        if(this.files[0]){
+            document.getElementById("fileName").innerText = this.files[0].name;
+        }
+    });
 
-selectedMode =
-value;
+    document.getElementById("uploadForm").addEventListener("submit", async function(e){
+        e.preventDefault();
+        const file = document.getElementById("fileInput").files[0];
+        if(!file) return;
 
-document
-.getElementById(
-"selectedText"
-)
-.innerText =
-text;
+        document.getElementById("emptyState").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("loading").style.display = "flex";
+        document.getElementById("outputStatus").innerText = "Processing";
 
-document
-.getElementById(
-"dropdown"
-)
-.classList
-.remove(
-"active"
-);
-}
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("mode", selectedMode);
 
-document
-.getElementById(
-"fileInput"
-)
-.addEventListener(
-"change",
-function(){
+        try {
+            const response = await fetch("/api/convert", {
+                method: "POST",
+                body: formData
+            });
+            const data = await response.json();
+            document.getElementById("loading").style.display = "none";
 
-if(this.files[0]){
-
-document
-.getElementById(
-"fileName"
-)
-.innerText =
-this.files[0].name;
-}
-}
-);
-
-document
-.getElementById(
-"uploadForm"
-)
-.addEventListener(
-"submit",
-async function(e){
-
-e.preventDefault();
-
-const file =
-document
-.getElementById(
-"fileInput"
-)
-.files[0];
-
-if(!file) return;
-
-document
-.getElementById(
-"loader"
-)
-.style.display =
-"flex";
-
-const formData =
-new FormData();
-
-formData.append(
-"file",
-file
-);
-
-formData.append(
-"mode",
-selectedMode
-);
-
-try{
-
-const response =
-await fetch(
-"/api/convert",
-{
-method:"POST",
-body:formData
-}
-);
-
-const data =
-await response.json();
-
-document
-.getElementById(
-"loader"
-)
-.style.display =
-"none";
-
-if(data.success){
-
-document
-.getElementById(
-"result"
-)
-.style.display =
-"block";
-
-document
-.getElementById(
-"resultImg"
-)
-.src =
-data.preview;
-
-document
-.getElementById(
-"downloadBtn"
-)
-.href =
-data.download;
-}
-
-}catch(err){
-
-document
-.getElementById(
-"loader"
-)
-.style.display =
-"none";
-
-alert(
-"Conversion failed"
-);
-}
-}
-);
-
+            if(data.success){
+                document.getElementById("result").style.display = "block";
+                document.getElementById("outputStatus").innerText = "Complete";
+                document.getElementById("resultImg").src = data.preview;
+                document.getElementById("downloadBtn").href = data.download;
+            }
+        } catch(err) {
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("emptyState").style.display = "flex";
+            document.getElementById("outputStatus").innerText = "Failed";
+            alert("Conversion failed");
+        }
+    });
 </script>
-
 </body>
 </html>
