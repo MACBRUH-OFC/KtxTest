@@ -1,3 +1,5 @@
 Flask
 gunicorn
-pillow>=11.2.1
+pillow
+texture2ddecoder
+numpy
